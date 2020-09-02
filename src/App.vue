@@ -1,28 +1,83 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Sidebar/>
+    <Navbar/>
+    <div class="page-container">
+      <div class="container py-2">
+        <router-view/>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Sidebar from './components/partials/Sidebar';
+import Navbar from './components/partials/Navbar';
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    Sidebar,
+    Navbar
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
 }
+
+hr {
+  margin-bottom: 0!important;
+}
+
+.page-container {
+  height:100%;
+  padding-top: 58px;
+  margin: auto;
+  text-align: center;
+  background: rgba(203,203,210,.15);
+}
+
+.card-body {
+      padding: 1.25rem 0 0 0!important;
+  }
+
+  .card {
+      border: none;
+      box-shadow: 0px 0px 5px 0px rgba(110,110,110,0.75);
+      -webkit-box-shadow: 0px 0px 5px 0px rgba(110,110,110,0.75);
+      -moz-box-shadow: 0px 0px 5px 0px rgba(110,110,110,0.75);
+  }
+
+  h4 {
+      /* Extra small devices (phones, less than 768px) */
+      font-size: 18px;
+      font-weight: bold;
+  }
+      /* Small devices (tablets, 768px and up) */
+  @media (min-width: 768px) {
+      h4 {
+          /* Extra small devices (phones, less than 768px) */
+          font-size: 18px;
+      }
+  }
+
+  /* Medium devices (desktops, 992px and up) */
+  @media (min-width: 992px) {
+      h4 {
+          /* Extra small devices (phones, less than 768px) */
+          font-size: 20px;
+      }
+  }
+
+  /* Large devices (large desktops, 1200px and up) */
+  @media (min-width: 1200px) {
+      h4 {
+          /* Extra small devices (phones, less than 768px) */
+          font-size: 20px;
+      }
+  }
 </style>
