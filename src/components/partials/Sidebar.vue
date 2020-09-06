@@ -6,12 +6,16 @@
             <span class="mr-auto rm-fio">{{nameShort}}</span>
         </template>
         <div class="px-3 py-2 sidebar-navi-block">
-            <ul class="navi-list">
-                <router-link 
-                    v-for="path in paths"
-                    v-bind:key="path.name"
-                    tag="li" :to="path.route" :class="$route.path === path.route ? 'navi-list-link-active' : ''" class="navi-list-link">{{path.name}}</router-link>
-            </ul>
+            <div v-for="particle in particles" :key="particle.id">
+                <span class="mx-2 font-weight-light" style="font-size: 12px;">{{particle.name}}</span>
+                <ul class="navi-list">
+                    <router-link 
+                        v-for="path in paths.filter(e => e.key === particle.key)"
+                        v-bind:key="path.name"
+                        tag="li" :to="path.route" :class="$route.path === path.route ? 'navi-list-link-active' : ''" class="navi-list-link">{{path.name}}</router-link>
+                </ul>
+                <hr class="mx-2" style="border-top:1px solid #535d6b;margin-top: 1rem;margin-bottom:1rem!important;">
+            </div>
         </div>
     </b-sidebar>
   </div>
@@ -23,8 +27,14 @@ export default {
     data: function() {
         return {
             paths: [
-                {route: '/', name: 'Главная'},
-                {route: '/activate', name: 'Активация клиентов'},
+                {route: '/', name: 'Главная', key: 'main'},
+                {route: '/activate', name: 'Активация клиентов', key: 'activators'},
+                {route: '/profile', name: 'Профиль', key: 'main'},
+                {route: '/settings', name: 'Настройки', key: 'main'},
+            ],
+            particles: [                
+                {id: 1, name: 'Активаторы', key: 'activators'},
+                {id: 999, name: 'Основные', key: 'main'},
             ],
             nameShort: 'Иванов И.И.',
         }
