@@ -1,6 +1,6 @@
 <template>
   <div class="activate">
-    <ClientList/>
+    <ClientList :user="user"/>
   </div>
 </template>
 
@@ -10,6 +10,7 @@ import ClientList from '@/components/activators/ClientList.vue'
 
 export default {
   name: 'Activate',
+  props: {user: Object},
   components: {
     ClientList
   }

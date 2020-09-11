@@ -21,6 +21,11 @@ Vue.use(VueRouter)
     component: () => import(/* webpackChunkName: "about" */ '../views/pages/Activate.vue')
   },
   {
+    path: '/reorderactivators',
+    name: 'ReorderActivators',
+    component: () => import('@/views/pages/ReorderActivators.vue')
+  },
+  {
     path: '*',
     name: 'Notfound',
     component: () => import(/* webpackChunkName: "about" */ '../views/Notfound.vue')

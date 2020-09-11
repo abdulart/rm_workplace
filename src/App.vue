@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <Sidebar/>
+    <Sidebar :user="user"/>
     <Navbar/>
     <div class="page-container">
       <div class="container py-2">
-        <router-view/>
+        <router-view :user="user"/>
       </div>
     </div>
   </div>
@@ -18,6 +18,25 @@ export default {
   components: {
     Sidebar,
     Navbar
+  },
+  data() {
+    return {
+      user: {
+        name: null,
+        counter: null,
+        roles: null,
+      }
+    }
+  },
+  mounted() {
+    this.user.name = this.$cookies.get('corp_fio') || null;
+    this.user.counter = this.$cookies.get('corp_counter') || null;
+    this.user.roles = this.$cookies.get('corp_roles') || null;
+
+    if(!this.user.name) {
+      //location.href = 'https://proportal/';
+      console.log(this.user.name); 
+    }
   }
 }
 </script>
@@ -50,6 +69,14 @@ hr {
       box-shadow: 0px 0px 5px 0px rgba(110,110,110,0.75);
       -webkit-box-shadow: 0px 0px 5px 0px rgba(110,110,110,0.75);
       -moz-box-shadow: 0px 0px 5px 0px rgba(110,110,110,0.75);
+  }
+
+  .container {
+    max-width: 100%!important;
+  }
+
+  .fio {
+    text-transform: capitalize;
   }
 
   h4 {

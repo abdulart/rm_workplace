@@ -3,7 +3,7 @@
     <b-sidebar text-variant="light" id="sidebar-1" title="Sidebar" shadow backdrop backdrop-variant="transparent">
         <template slot="title">
             <b-avatar class="mr-2" size="sm"></b-avatar>
-            <span class="mr-auto rm-fio">{{nameShort}}</span>
+            <span class="mr-auto rm-fio" style="text-transform: capitalize;">{{fioToShort(user.name,'+')}}</span>
         </template>
         <div class="px-3 py-2 sidebar-navi-block">
             <div v-for="particle in particles" :key="particle.id">
@@ -22,13 +22,16 @@
 </template>
 
 <script>
+import helpers from '@/helpers';
 export default {
     name: 'Sidebar',
+    props: {user: Object},
     data: function() {
         return {
             paths: [
                 {route: '/', name: 'Главная', key: 'main'},
                 {route: '/activate', name: 'Активация клиентов', key: 'activators'},
+                {route: '/reorderactivators', name: 'Распределение клиентов', key: 'activators'},
                 {route: '/profile', name: 'Профиль', key: 'main'},
                 {route: '/settings', name: 'Настройки', key: 'main'},
             ],
@@ -38,6 +41,9 @@ export default {
             ],
             nameShort: 'Иванов И.И.',
         }
+    },
+    methods: {
+        fioToShort: helpers.fioToShort,
     }
 }
 </script>

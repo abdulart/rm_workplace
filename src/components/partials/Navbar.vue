@@ -3,7 +3,7 @@
     <b-navbar class="rm-nav" type="light" variant="light">
       <b-navbar-nav class="logo-container">
         <b-nav-item href="#" class="rm-nav-header" v-b-toggle.sidebar-1>
-          <img class="logo-img" src="/img/burger.svg">
+          <img class="logo-img" src="img/burger.svg">
         </b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav>
