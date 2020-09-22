@@ -26,6 +26,21 @@ Vue.use(VueRouter)
     component: () => import('@/views/pages/ReorderActivators.vue')
   },
   {
+    path: '/addprospect',
+    name: 'AddProspect',
+    component: () => import('@/views/pages/AddProspect.vue')
+  },
+  {
+    path: '/prospectsdashboard',
+    name: 'ProspectsDashboard',
+    component: () => import('@/views/pages/ProspectsDashboard.vue')
+  },
+  {
+    path: '/prospect/:id',
+    name: 'Prospect',
+    component: () => import('@/views/pages/Prospect.vue')
+  },
+  {
     path: '*',
     name: 'Notfound',
     component: () => import(/* webpackChunkName: "about" */ '../views/Notfound.vue')

@@ -34,7 +34,7 @@ export default {
     this.user.roles = this.$cookies.get('corp_roles') || null;
 
     if(!this.user.name) {
-      //location.href = 'https://proportal/';
+      location.href = '/../';
       console.log(this.user.name); 
     }
   }

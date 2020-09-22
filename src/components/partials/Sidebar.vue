@@ -34,9 +34,12 @@ export default {
                 {route: '/reorderactivators', name: 'Распределение клиентов', key: 'activators'},
                 {route: '/profile', name: 'Профиль', key: 'main'},
                 {route: '/settings', name: 'Настройки', key: 'main'},
+                {route: '/addprospect', name: 'Добавить проспект', key: 'prospects'},
+                {route: '/prospectsdashboard', name: 'Дэшборд хантеры', key: 'prospects'},
             ],
             particles: [                
                 {id: 1, name: 'Активаторы', key: 'activators'},
+                {id: 2, name: 'Проспекты', key: 'prospects'},
                 {id: 999, name: 'Основные', key: 'main'},
             ],
             nameShort: 'Иванов И.И.',

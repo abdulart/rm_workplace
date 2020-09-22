@@ -14,9 +14,9 @@
       :items="items" class="rm-table">
         <template v-slot:thead-top>
           <b-tr >
-            <b-th style="background:#bdbdbd; text-align:left;" colspan="9">Всего: {{items.length}}</b-th>
+            <b-th style="background:#bdbdbd; text-align:left;" colspan="10">Всего: {{items.length}}</b-th>
             <b-th style="background:#bdbdbd;" colspan="1">{{items.filter(e => e.status > 0).length}}</b-th>
-            <b-th style="background:#bdbdbd;" colspan="1">{{items.filter(e => e.status > 1).length}}</b-th>
+            <b-th style="background:#bdbdbd;" colspan="1">{{items.filter(e => e.status == 2).length}}</b-th>
             <b-th style="background:#bdbdbd;" colspan="1">{{items.filter(e => e.activeStatus === 'active').length}}</b-th>
           </b-tr>
         </template>
@@ -29,12 +29,15 @@
         <b-badge :variant="workStatuses[data.item.status || 0].variant" style="cursor:pointer" @click="getClientsWorkObject({id: data.item.clientId, name: data.item.name_short, inn: data.item.uniquetin, status: data.item.status})">{{workStatuses[data.item.status || 0].text}}</b-badge>
       </template>
       <template v-slot:cell(worked)="data">
-        <span class="fio">{{ (data.item.status || 0) > 0 ? 'Да' : 'Нет' }}</span>
+        <span class="fio">{{ data.value }}</span>
       </template>
       <template v-slot:cell(presentation)="data">
-        <span class="fio">{{ (data.item.status || 0) > 1 ? 'Да' : 'Нет' }}</span>
+        <span class="fio">{{ data.value }}</span>
       </template>
       <template v-slot:cell(rmName)="data">
+        <span class="fio">{{ fioToShort(data.value) }}</span>
+      </template>
+      <template v-slot:cell(fio)="data">
         <span class="fio">{{ fioToShort(data.value) }}</span>
       </template>
       <template v-slot:cell(name_short)="data">
@@ -82,7 +85,7 @@
           ">
             <ul style="list-style-type: none;">
               <li v-for="act in selectedClient.prevActs" :key="act.id">
-                <p style="margin-bottom:0!important;margin-top:5px;">{{act.ts_created.date.split('.')[0]}} <b>{{workStatuses[act.status || 0].text}}</b></p><i style="margin-left: 5px;">{{act.comment}}</i>
+                <p style="margin-bottom:0!important;margin-top:5px;">{{act.ts_created.date.split('.')[0]}} <b>{{workStatuses[act.status || 0].text}}</b> <span style="text-transform: capitalize;">{{fioToShort(act.fio)}}</span></p><i style="margin-left: 5px; white-space: pre-wrap;">{{act.comment}}</i>
               </li>
             </ul>
           </div>
@@ -90,8 +93,8 @@
       </div>
       <template v-slot:modal-footer>
         <div class="w-100">
-          <b-button @click="saveClientWork" variant="success">Ок</b-button>&nbsp;
-          <b-button @click="showModal = false" variant="danger">Отмена</b-button>
+          <b-button @click="showModal = false" variant="danger" style="float:left;">Отмена</b-button>
+          <b-button @click="saveClientWork" variant="success" style="float:right;">Сохранить</b-button>
         </div>
       </template>
     </b-modal>
@@ -108,7 +111,8 @@
         busy: false,
         items: [],
         fields: [
-          {key:'status', sortable: false, label: 'Статус'}, 
+          {key:'status', sortable: true, label: 'Статус'}, 
+          {key:'fio', sortable: false, label: 'Активатор'},
           {key:'groupname', sortable: true, label: 'Группа'},
           {key:'name_short', sortable: true, label: 'Название'},
           {key:'uniquetin', sortable: true, label: 'ИНН'},
@@ -123,8 +127,9 @@
         ],
         options: [
           { value: null, text: 'Не связывались' },
-          { value: 1, text: 'Звонили' },
+          { value: 1, text: 'В работе' },
           { value: 2, text: 'Провели презу' },
+          { value: 3, text: 'On hold' },
         ],
         showModal: false,
         modalSelect: null,
@@ -136,7 +141,7 @@
           name: null,
           prevActs: [],
         },
-        workStatuses: {0: {text: 'Не связывались', variant: 'danger'}, 1: {text: 'Звонили', variant: 'warning'}, 2: {text: 'Провели презу', variant: 'success'}}
+        workStatuses: {0: {text: 'Не связывались', variant: 'danger'}, 1: {text: 'В работе', variant: 'warning'}, 2: {text: 'Провели презу', variant: 'success'}, 3: {text: 'On hold', variant: 'secondary'}}
       }
     },
     methods: {
@@ -177,27 +182,30 @@
       },
       saveClientWork()
       {
-        if(!this.selectedClient.id) {
-          alert('Ошибка клиентского id');
-          return false;
-        } else {
-          let formData = new FormData();
-          formData.append('status', this.modalSelect);
-          formData.append('comment', this.modalText);
-          axios.post(`/includes/classes/3xxx/controllers/fabric.php?controller=save_clients_work&id=${this.selectedClient.id}`,formData)
-            .then(data => {
-              if(data.data === 'success') {
-                alert('Ок!');
-                location.reload();
-              } else {
-                alert('Ошибка сохранения активности!');
+        if(confirm('Вы уверены, что хотите сохранить новую активность?')) {
+          if(!this.selectedClient.id) {
+            alert('Ошибка клиентского id');
+            return false;
+          } else {
+            let formData = new FormData();
+            formData.append('status', this.modalSelect);
+            formData.append('comment', this.modalText);
+            axios.post(`/includes/classes/3xxx/controllers/fabric.php?controller=save_clients_work&id=${this.selectedClient.id}&portal_counter=${this.user.counter}`,formData)
+              .then(data => {
+                if(data.data === 'success') {
+                  alert('Ок!');
+                  location.reload();
+                } else {
+                  alert('Ошибка сохранения активности!');
+                  return false;
+                }
+              })
+              .catch(err => {
+                alert('Ошибка: ' + err);
                 return false;
-              }
-            })
-            .catch(err => {
-              alert('Ошибка: ' + err);
-              return false;
-            })
+              })
+            }
+        
         }
       }
     },

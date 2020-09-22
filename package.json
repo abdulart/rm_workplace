@@ -11,8 +11,11 @@
     "axios": "^0.20.0",
     "bootstrap-vue": "^2.1.0",
     "core-js": "^3.6.5",
+    "moment": "^2.28.0",
+    "moment-timezone": "^0.5.31",
     "vue": "^2.6.11",
     "vue-cookies": "^1.7.4",
+    "vue-multiselect": "^2.1.6",
     "vue-router": "^3.2.0",
     "vuedraggable": "^2.24.1"
   },

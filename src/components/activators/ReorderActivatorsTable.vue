@@ -4,32 +4,34 @@
       title="Распределение клиентов для активаторов"
     >
     <hr>
-    <b-button variant="success" @click="saveDistribution">
-      <b-spinner v-if="saving" small></b-spinner>
-      <span v-else>Сохранить распределение</span>
-     </b-button>
-    <hr>
-    <div class="row" style="margin: auto;">
-      <div class="col" style="margin: 0 auto;" v-for="activator in activators" :key="activator.portal_counter">
-        <b style="text-transform: capitalize;">{{fioToShort(activator.fio)}}</b>
-        <draggable
-          class="dragArea list-group"
-          :list="activator.activatorsClients"
-          @start="drag = true" 
-          @end="drag = false"
-          group="people"
-        >
-          <div class="list-group-item" style="font-size: 10px;" v-for="element in activator.activatorsClients" :key="element.uniquetin">
-            <b>{{ cutNameIfLongerThan(element.name_short,20) }}</b> {{element.inn}} <i style="cursor:help;" :id="element.inn+'inf'"><b>?</b></i>
-            <b-popover :target="element.inn+'inf'" style="font-size: 10px;">
-              <template v-slot:title>{{element.name_short}}</template>
-              Инн: {{element.inn}}
-            </b-popover>
+      <b-overlay :show="loadingActs" rounded="sm">
+        <b-button variant="success" @click="saveDistribution">
+          <b-spinner v-if="saving" small></b-spinner>
+          <span v-else>Сохранить распределение</span>
+        </b-button>
+        <hr>
+        <div class="row" style="margin: auto;">
+          <div class="col" style="margin: 0 auto;" v-for="activator in activators" :key="activator.portal_counter">
+            <b style="text-transform: capitalize;">{{fioToShort(activator.fio)}} ({{activator.activatorsClients.length}})</b>
+            <draggable
+              class="dragArea list-group"
+              :list="activator.activatorsClients"
+              @start="drag = true" 
+              @end="drag = false"
+              group="people"
+            >
+              <div :style="{backgroundColor: colors[element.status || 0]}" class="list-group-item" style="font-size: 10px;" v-for="element in activator.activatorsClients" :key="element.uniquetin">
+                <b>{{ cutNameIfLongerThan(element.name_short,20) }}</b> {{element.inn}} <i style="cursor:help;" :id="element.inn+'inf'"><b>?</b></i>
+                <b-popover :target="element.inn+'inf'" style="font-size: 10px;">
+                  <template v-slot:title>{{element.name_short}}</template>
+                  Инн: {{element.inn}}
+                </b-popover>
+              </div>
+            </draggable>
           </div>
-        </draggable>
-      </div>
 
-    </div>
+        </div>
+      </b-overlay>
     </b-card>
   </div>
 </template>
@@ -48,6 +50,7 @@ let idGlobal = 8;
     },
     data() {
       return {
+        colors: ['#ff6a6a','#ffb13b','#62ff3b','#c1c1c1'],
         list1: [
           { name: "Jesus", id: 1 },
           { name: "Paul", id: 2 },
@@ -63,6 +66,7 @@ let idGlobal = 8;
         clients: [],
         drag: false,
         saving: false,
+        loadingActs: false,
       }
     },
     methods: {
@@ -112,12 +116,13 @@ let idGlobal = 8;
       cutNameIfLongerThan: helpers.cutNameIfLongerThan,
     },
     mounted() {
+      this.loadingActs = true;
       axios.get(`/includes/classes/3xxx/controllers/fabric.php?controller=get_activators_clients`)
         .then(data => {
           let res = data.data || {activators: [], clients: []};
           this.clients = res.clients;
           this.activators = res.activators.map(e => {
-            e.activatorsClients = this.clients.filter(client => client.portal_counter == e.counter);
+            e.activatorsClients = this.clients.filter(client => client.portal_counter == e.counter).sort((a,b) => a.status - b.status);
 
 
             return e;
@@ -128,6 +133,7 @@ let idGlobal = 8;
           console.log(err);
           alert('Ошибка!');
         })
+        .finally(() => this.loadingActs = false);
     }
   }
 </script>
@@ -136,6 +142,8 @@ let idGlobal = 8;
    .list-group {
      display: block;
     min-height: 100px;
+    max-height: 700px;
+    overflow-y: scroll;
     background: #f7f7f7;
     padding-bottom: 20px;
    }

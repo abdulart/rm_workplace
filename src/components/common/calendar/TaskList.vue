@@ -28,7 +28,7 @@ export default {
     data: function() {
         return {
             busy: false,
-            items: null,
+            items: [],
         }
     },
     methods: {
