@@ -1,9 +1,16 @@
 <template>
   <div class="client_list">
-    <b-card
-      title="Клиенты новой базы на активации"
-    >
-    <hr>
+    <b-card>
+      <template v-slot:header>
+        <h4 class="mb-0">Клиенты новой базы на активации
+          <b-button variant="success" style="float:right;font-size: 10px;" size="sm" @click="toExcel">
+            <b-icon icon="file-earmark-spreadsheet" aria-hidden="true"></b-icon>
+          </b-button>&nbsp;
+          <b-button style="float:right;font-size: 10px;" size="sm" @click="updateClients">
+            <b-spinner v-if="clientsUpdating" small></b-spinner>
+            <b-icon v-else icon="arrow-clockwise" aria-hidden="true"></b-icon>
+          </b-button></h4>
+      </template>
       <b-table  
       striped
       hover 
@@ -109,10 +116,11 @@
     data() {
       return {
         busy: false,
+        clientsUpdating: false,
         items: [],
         fields: [
           {key:'status', sortable: true, label: 'Статус'}, 
-          {key:'fio', sortable: false, label: 'Активатор'},
+          {key:'fio', sortable: true, label: 'Активатор'},
           {key:'groupname', sortable: true, label: 'Группа'},
           {key:'name_short', sortable: true, label: 'Название'},
           {key:'uniquetin', sortable: true, label: 'ИНН'},
@@ -145,6 +153,30 @@
       }
     },
     methods: {
+      updateClients() {
+        if(this.clientsUpdating) return false;
+        this.clientsUpdating = true;
+        axios.get(`/includes/classes/3xxx/controllers/fabric.php?controller=update_activators_list`)
+              .then(data => {
+                if(data.data === 'success') {
+                  alert('Обновлено!');
+                  location.reload();
+                } else {
+                  alert('Ошибка обновления!');
+                  return false;
+                }
+              })
+              .catch(err => {
+                alert('Ошибка: ' + err);
+                return false;
+              })
+              .finally(() => {
+                this.clientsUpdating = false;
+              })
+      },
+      toExcel() {
+
+      },
       fioToShort(fio, del = ' ') {
         try {
             if(!fio) return '';
@@ -249,4 +281,5 @@
         text-align: center;
         border-top: 1px solid #eee;
     }
+
 </style>
