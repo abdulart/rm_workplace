@@ -1,8 +1,8 @@
 <template>
-    <b-card
-        title="Календарь"
-    >
-    <hr>
+    <b-card>
+    <template v-slot:header>
+            <h4 class="mb-0">Календарь</h4>
+        </template>
         <b-row>
             <b-col md="auto">
                 <b-calendar

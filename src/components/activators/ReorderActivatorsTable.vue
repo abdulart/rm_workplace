@@ -1,9 +1,9 @@
 <template>
   <div class="reorder-talbe">
-    <b-card
-      title="Распределение клиентов для активаторов"
-    >
-    <hr>
+    <b-card>
+    <template v-slot:header>
+            <h4 class="mb-0">Распределение клиентов для активаторов</h4>
+        </template>
       <b-overlay :show="loadingActs" rounded="sm">
         <b-button variant="success" @click="saveDistribution">
           <b-spinner v-if="saving" small></b-spinner>
@@ -22,7 +22,7 @@
             >
               <div :style="{backgroundColor: colors[element.status || 0]}" class="list-group-item" style="font-size: 10px;" v-for="element in activator.activatorsClients" :key="element.uniquetin">
                 <b>{{ cutNameIfLongerThan(element.name_short,20) }}</b> {{element.inn}} <i style="cursor:help;" :id="element.inn+'inf'"><b>?</b></i>
-                <b-popover :target="element.inn+'inf'" style="font-size: 10px;">
+                <b-popover :target="element.inn+'inf'" style="font-size: 10px;" triggers="hover">
                   <template v-slot:title>{{element.name_short}}</template>
                   Инн: {{element.inn}}
                 </b-popover>

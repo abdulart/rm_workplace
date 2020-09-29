@@ -3,9 +3,10 @@
         <b-alert :show="errorTable.show" dismissible variant="danger">
             Ошибка! {{errorTable.message}}
         </b-alert>
-        <b-card
-            title="Дэшборд хантеры"
-        >
+        <b-card>
+        <template v-slot:header>
+            <h4 class="mb-0">Дэшборд хантеры</h4>
+        </template>
             <div class="row" style="margin:0;">
                 <div class="col-sm-3" style="padding:10px; font-size:12px;">
                     <label>Месяц отчета</label>

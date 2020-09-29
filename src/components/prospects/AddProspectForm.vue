@@ -1,8 +1,9 @@
 <template>
     <div class="add-prospect-form">
-        <b-card
-            title="Добавление проспекта по ИНН"
-        >
+        <b-card>
+        <template v-slot:header>
+            <h4 class="mb-0">Добавление проспекта по ИНН</h4>
+        </template>
         <b-alert
             :show="dismissCountDown"
             dismissible
