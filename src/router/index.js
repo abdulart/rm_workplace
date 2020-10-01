@@ -41,6 +41,21 @@ Vue.use(VueRouter)
     component: () => import('@/views/pages/Prospect.vue')
   },
   {
+    path: '/prospects/main',
+    name: 'ProspectsMain',
+    component: () => import('@/views/prospects/Main.vue')
+  },
+  {
+    path: '/manager/region',
+    name: 'RegManager',
+    component: () => import('@/views/manager/RegManager.vue')
+  },
+  {
+    path: '/manager/subregion',
+    name: 'SubregManager',
+    component: () => import('@/views/manager/SubregManager.vue')
+  },
+  {
     path: '*',
     name: 'Notfound',
     component: () => import(/* webpackChunkName: "about" */ '../views/Notfound.vue')

@@ -7,7 +7,7 @@
         </b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav>
-        <b-nav-item href="#" class="rm-nav-header">ProPortal</b-nav-item>
+        <b-nav-item href="#" class="rm-nav-header">RM Workplace</b-nav-item>
         <b-nav-item to="/" class="rm-nav-link">Главная</b-nav-item>
         <!-- <b-nav-item href="#" class="rm-nav-link">Профиль</b-nav-item> -->
       </b-navbar-nav>
