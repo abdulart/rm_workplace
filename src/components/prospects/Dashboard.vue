@@ -22,45 +22,9 @@
             </div>
             <DashboardTable v-on:setregion="setRegion($event)"
             v-on:setsubregion="setSubRegion($event)"
-            v-on:setmanager="setManager($event)" :table="
-            {items: itemsCopy, fields: fields, busy: busy, step: step}
-            "/>
-            <!-- <b-table  
-                striped
-                hover 
-                responsive
-                sticky-header="700px"
-                :busy="busy"
-                :fields="fields"
-                :items="items" class="rm-table">
-            <template v-slot:table-busy>
-                <div class="text-center text-danger my-2">
-                <b-spinner class="align-middle"></b-spinner>&nbsp;<strong>Загрузка...</strong>
-                </div>
-            </template>
-            <template v-slot:cell(plan)="data">
-                <span class="">{{ data.item.plan.total }}</span>
-            </template>
-            <template v-slot:cell(fact)="data">
-                <span class="">{{ data.item.fact.total }}</span>
-            </template>
-            <template v-slot:cell(strikeRate)="data">
-                <b-progress :striped="striped">
-                    <b-progress-bar :value="getStrikeRate(data.item.plan.total,data.item.fact.total)" variant="success" >
-                        <span style="font-weight:bold;color:#000;left: 0;right: 0;position: absolute;">{{data.item.fact.total}} / {{data.item.plan.total}}</span>
-                    </b-progress-bar>
-                </b-progress>
-            </template>
-            <template v-slot:cell(factRej)="data">
-                <span class="">{{ data.item.fact.rej }}</span>
-            </template>
-            <template v-slot:cell(factSucc)="data">
-                <span class="">{{ data.item.fact.succ }}</span>
-            </template>
-            <template v-slot:cell(factInProc)="data">
-                <span class="">{{ data.item.fact.inProc }}</span>
-            </template>
-            </b-table> -->
+            v-on:setmanager="setManager($event)" 
+            :table="{items: itemsCopy, fields: fields, busy: busy, step: step}"
+            />
         </b-card>
     </div>
 </template>
