@@ -3,6 +3,19 @@
     <b-card bg-variant="light">
       <h4>Проспект</h4>
       <div class="details text-left">
+        <div>
+          <b-tabs content-class="mt-3">
+            <b-tab title="Основная" active>
+              
+            </b-tab>
+            <b-tab title="Инфо">
+              
+            </b-tab>
+            <b-tab title="Бизнес линии">
+              
+            </b-tab>
+          </b-tabs>
+        </div>
         <div class="manager-pin-container">
           <b-badge variant="primary" v-if="pinnedManager">RM: {{fioToShort(pinnedManager.name)}}</b-badge>
           <b-badge variant="secondary" v-else>Свободный</b-badge>&nbsp;

@@ -6,10 +6,11 @@
           <b-button variant="success" style="float:right;font-size: 10px;" size="sm" @click="toExcel">
             <b-icon icon="file-earmark-spreadsheet" aria-hidden="true"></b-icon>
           </b-button>&nbsp;
-          <b-button style="float:right;font-size: 10px;" size="sm" @click="updateClients">
+          <!-- <b-button style="float:right;font-size: 10px;" size="sm" @click="updateClients">
             <b-spinner v-if="clientsUpdating" small></b-spinner>
             <b-icon v-else icon="arrow-clockwise" aria-hidden="true"></b-icon>
-          </b-button></h4>
+          </b-button> -->
+        </h4>
       </template>
       <b-table  
       striped

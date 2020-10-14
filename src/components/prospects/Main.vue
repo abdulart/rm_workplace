@@ -1,19 +1,27 @@
 <template>
     <div class="main">
-        <b-card>
+        <!-- <b-card>
         <template v-slot:header>
             <h4 class="mb-0">Хантер. Главная страница</h4>
-        </template>
+        </template> -->
             <div class="p-2">
                 <b-card-group deck>
                     <b-card
                         v-for="vidget in vidgets"
                         :key="vidget.name"
                         :bg-variant="vidget.variant"
-                        text-variant="white"
-                        :header="vidget.name" class="text-center">
-                        <b-card-text>
-                            <h1>{{vidget.data}}</h1>
+                        class="text-left">
+                        <b-card-text style="padding: 10px;">
+                            <strong class="text-muted" style="font-size: 12px;margin:0;padding:0;text-transform: uppercase;">{{vidget.name}}</strong>
+                            <br><strong></strong>
+                            <div class="row align-items-center gx-2 mb-1">
+                  <div class="col-6">
+                    <span class="card-title h2">12</span> / 40
+                  </div>
+                  <div class="col-6">
+                    
+                  </div>
+                </div>
                         </b-card-text>
                     </b-card>
                 </b-card-group>
@@ -23,7 +31,7 @@
                         striped
                         hover 
                         responsive
-                        sticky-header="200px"
+                        sticky-header="500px"
                         :busy="myProspects.busy"
                         :fields="myProspects.fields"
                         :items="myProspects.items" class="rm-table">
@@ -47,7 +55,7 @@
                     </b-table>
                 </div>
             </div>
-        </b-card>
+        <!-- </b-card> -->
     </div>
 </template>
 
@@ -98,23 +106,23 @@ export default {
                 tasks: {
                     name: 'Задачи',
                     data: 10,
-                    variant: 'primary',
+                    variant: 'default',
                 },
                 prospects: {
                     name: 'Проспекты',
                     data: 10,
-                    variant: 'primary',
+                    variant: 'default',
                 },
-                calls: {
-                    name: 'Звонки',
-                    data: '12 / 40',
-                    variant: 'danger',
+                callsPF: {
+                    name: 'Звонки план/факт',
+                    data: 10,
+                    variant: 'default',
                 },
-                meetings: {
-                    name: 'Встречи',
-                    data: '2 / 5',
-                    variant: 'warning',
-                }
+                meetingsPF: {
+                    name: 'Встречи план/факт',
+                    data: 10,
+                    variant: 'default',
+                },
             }
         }
     },
