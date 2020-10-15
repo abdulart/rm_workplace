@@ -101,13 +101,6 @@ export default {
                         //{ value: { R: '2D2' }, text: 'Another option with object value' }
                     ]
                 },
-                {
-                    label: 'Регион',
-                    options: [
-                        //{ value: { C: '3PO' }, text: 'Option with object value' },
-                        //{ value: { R: '2D2' }, text: 'Another option with object value' }
-                    ]
-                }
             ],
             myTasks: [],
             myTaskFields: [
@@ -186,7 +179,6 @@ export default {
             .then(data => {
                 let res = data.data || {regs: [], sregs: []};
                 this.regions[0].options = res.sregs;
-                this.regions[1].options = res.regs;
             })
             .catch(err => {
                 alert(`Ошибка: ${err}`)
