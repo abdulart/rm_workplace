@@ -105,6 +105,7 @@ export default {
             myTasks: [],
             myTaskFields: [
                 { key: 'name', label: 'Название', sortable: true, sortDirection: 'asc' },
+                { key: 'subregion', label: 'Субрегион', sortable: true, sortDirection: 'asc' },
                 { key: 'inns', label: 'Иннов', sortable: true, sortDirection: 'asc' },
                 { key: 'deadline', label: 'Дэдлайн', sortable: true, sortDirection: 'asc' },
                 { key: 'id', label: 'Дет.' },
