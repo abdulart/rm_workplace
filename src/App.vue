@@ -3,7 +3,7 @@
     <Sidebar :user="user"/>
     <Navbar/>
     <div class="page-container">
-      <div class="container py-2">
+      <div class="container">
         <router-view :user="user"/>
       </div>
     </div>
@@ -34,8 +34,8 @@ export default {
     this.user.roles = this.$cookies.get('corp_roles') || null;
 
     if(!this.user.name) {
-      location.href = '/../';
-      console.log(this.user.name); 
+      //location.href = '/../';
+      //console.log(this.user.name); 
     }
   }
 }
