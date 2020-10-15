@@ -61,6 +61,11 @@ Vue.use(VueRouter)
     component: () => import('@/views/manager/Tasks.vue')
   },
   {
+    path: '/manager/hunters',
+    name: 'Hunters',
+    component: () => import('@/views/manager/Hunters.vue')
+  },
+  {
     path: '*',
     name: 'Notfound',
     component: () => import(/* webpackChunkName: "about" */ '../views/Notfound.vue')

@@ -38,6 +38,7 @@ export default {
                 {route: '/addprospect', name: 'Добавить проспект', key: 'prospects'},
                 {route: '/prospectsdashboard', name: 'Отчет хантеры', key: 'manager'},
                 {route: '/manager/tasks', name: 'Поставить задачу', key: 'manager'},
+                {route: '/manager/hunters', name: 'Список хантеров', key: 'manager'},
                 // {route: '/manager/region', name: 'Руководитель региона', key: 'manager'},
                 // {route: '/manager/subregion', name: 'Руководитель субрегиона', key: 'manager'},
             ],
