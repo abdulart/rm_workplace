@@ -121,19 +121,19 @@ export default {
             if(this.saving) return false;
 
             if(!this.name) {
-                alert('Заполните все поля');
+                alert('Заполните все поля - Пустое название');
                 return false;
             }
             if(!this.inns) {
-                alert('Заполните все поля');
+                alert('Заполните все поля - Пустой список ИННов');
                 return false;
             }
             if(!this.region) {
-                alert('Заполните все поля');
+                alert('Заполните все поля - пустой регион');
                 return false;
             }
             if(!this.deadline) {
-                alert('Заполните все поля');
+                alert('Заполните все поля - пустой дэдлайн');
                 return false;
             }
 
