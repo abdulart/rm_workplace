@@ -1,9 +1,10 @@
 <template>
     <div class="main">
-        <!-- <b-card>
+        <br>
+        <b-card>
         <template v-slot:header>
-            <h4 class="mb-0">Хантер. Главная страница</h4>
-        </template> -->
+            <h4 class="mb-0">Дэшборд хантер</h4>
+        </template>
             <div class="p-2">
                 <b-card-group deck>
                     <b-card
@@ -55,7 +56,7 @@
                     </b-table>
                 </div>
             </div>
-        <!-- </b-card> -->
+        </b-card>
     </div>
 </template>
 

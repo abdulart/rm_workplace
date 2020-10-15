@@ -56,6 +56,11 @@ Vue.use(VueRouter)
     component: () => import('@/views/manager/SubregManager.vue')
   },
   {
+    path: '/manager/tasks',
+    name: 'Tasks',
+    component: () => import('@/views/manager/Tasks.vue')
+  },
+  {
     path: '*',
     name: 'Notfound',
     component: () => import(/* webpackChunkName: "about" */ '../views/Notfound.vue')
