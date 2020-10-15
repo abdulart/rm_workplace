@@ -24,7 +24,7 @@
                         <template v-slot:cell(act_result)="row">
                         <b-badge :variant="(tabsActivityResults[row.value] || {variant: 'secondary'}).variant">{{(tabsActivityResults[row.value] || {text: 'N/A'}).text}}</b-badge>
                         </template> --> 
-                        <template v-slot:cell(deadline)="row">
+                        <template v-slot:cell(subregion)="row">
                             <b-input-group size="sm">
                                 <b-form-select
                                 :options="regions"
