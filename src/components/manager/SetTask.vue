@@ -126,6 +126,13 @@ export default {
     methods: {
         saveTask: function() {
             if(this.saving) return false;
+
+            if(!this.name) alert('Заполните все поля');
+            if(!this.inns) alert('Заполните все поля');
+            if(!this.region) alert('Заполните все поля');
+            if(!this.deadline) alert('Заполните все поля');
+
+
             this.saving = true;
             let formData = new FormData();
             formData.append('deadline', this.deadline);
@@ -134,12 +141,12 @@ export default {
             formData.append('region', this.region);
             axios.post('/includes/classes/3xxx/controllers/fabric.php?controller=savetask', formData)
                 .then(data => {
-                    let res = data.data || 'rej';
+                    let res = data.data;
                     if(res === 'success') {
                         alert('Сохранено!');
                         location.reload();
                     } else {
-                        alert(`Ошибка`);
+                        alert(`Ошибка: ${res}`);
                         return false;
                     }
                 })
@@ -158,6 +165,16 @@ export default {
                 let res = data.data || [];
                 this.myTasks = res;
                 console.log(res)
+            })
+            .catch(err => {
+                alert(`Ошибка: ${err}`)
+            })
+
+        axios.get(`/includes/classes/3xxx/controllers/fabric.php?controller=getsrs`)
+            .then(data => {
+                let res = data.data || {regs: [], sregs: []};
+                this.regions[0].options = res.sregs;
+                this.regions[1].options = res.regs;
             })
             .catch(err => {
                 alert(`Ошибка: ${err}`)
