@@ -144,6 +144,7 @@ export default {
             formData.append('inns', this.inns);
             formData.append('name', this.name);
             formData.append('region', this.region);
+            formData.append('uid', this.user.counter);
             axios.post('/includes/classes/3xxx/controllers/fabric.php?controller=savetask', formData)
                 .then(data => {
                     let res = data.data;
