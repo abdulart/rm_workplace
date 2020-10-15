@@ -134,7 +134,14 @@ export default {
             formData.append('region', this.region);
             axios.post('/includes/classes/3xxx/controllers/fabric.php?controller=savetask', formData)
                 .then(data => {
-                    console.log(data);
+                    let res = data.data || 'rej';
+                    if(res === 'success') {
+                        alert('Сохранено!');
+                        location.reload();
+                    } else {
+                        alert(`Ошибка`);
+                        return false;
+                    }
                 })
                 .catch(err => {
                     console.log(err);
@@ -146,7 +153,15 @@ export default {
         }
     },
     mounted() {
-        
+        axios.get(`/includes/classes/3xxx/controllers/fabric.php?controller=getmytasks&counter=${this.user.counter}`)
+            .then(data => {
+                let res = data.data || [];
+                this.myTasks = res;
+                console.log(res)
+            })
+            .catch(err => {
+                alert(`Ошибка: ${err}`)
+            })
     }
 }
 </script>
