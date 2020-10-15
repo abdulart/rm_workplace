@@ -127,10 +127,22 @@ export default {
         saveTask: function() {
             if(this.saving) return false;
 
-            if(!this.name) alert('Заполните все поля');
-            if(!this.inns) alert('Заполните все поля');
-            if(!this.region) alert('Заполните все поля');
-            if(!this.deadline) alert('Заполните все поля');
+            if(!this.name) {
+                alert('Заполните все поля');
+                return false;
+            }
+            if(!this.inns) {
+                alert('Заполните все поля');
+                return false;
+            }
+            if(!this.region) {
+                alert('Заполните все поля');
+                return false;
+            }
+            if(!this.deadline) {
+                alert('Заполните все поля');
+                return false;
+            }
 
 
             this.saving = true;
