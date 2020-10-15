@@ -71,10 +71,10 @@
                         </template>
                         <template v-slot:cell(act_end_time)="row">
                         <span>{{ dateFormat(row.value, 'HH:mm DD-MM-YYYY') }}</span>
-                        </template>
-                        <template v-slot:cell(a_id)="row">
-                        <b-badge variant="info" style="cursor:pointer;" @click="showActDetails(row.value)">+</b-badge>
                         </template> -->
+                        <template v-slot:cell(id)="row">
+                            <b-badge variant="info" style="cursor:pointer;">+</b-badge>
+                        </template>
                     </b-table>
                 </div>
             </div>
