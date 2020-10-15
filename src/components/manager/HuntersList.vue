@@ -23,10 +23,21 @@
                         </template>
                         <template v-slot:cell(act_result)="row">
                         <b-badge :variant="(tabsActivityResults[row.value] || {variant: 'secondary'}).variant">{{(tabsActivityResults[row.value] || {text: 'N/A'}).text}}</b-badge>
-                        </template> 
+                        </template> --> 
                         <template v-slot:cell(deadline)="row">
-                            <span>{{ dateFormat(row.value, 'DD-MM-YYYY') }}</span>
-                        </template> -->
+                            <b-input-group size="sm">
+                                <b-form-select
+                                :options="regions"
+                                v-model="region"
+                                :variant="row"
+                                required
+                                ></b-form-select>
+                                <b-input-group-append>
+                                <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+                                </b-input-group-append>
+                            </b-input-group>
+                            <!-- <span>{{ dateFormat(row.value, 'DD-MM-YYYY') }}</span> -->
+                        </template>
                         <template v-slot:cell(id)="row">
                             <b-badge variant="info" style="cursor:pointer;" :value="row.value">+</b-badge>
                         </template> 
@@ -59,6 +70,15 @@ export default {
                 // { key: 'deadline', label: 'Дэдлайн', sortable: true, sortDirection: 'asc' },
                 { key: 'id', label: 'Дет.' },
             ],
+            regions: [
+                {
+                    label: 'Субрегион',
+                    options: [
+                        //{ value: { C: '3PO' }, text: 'Option with object value' },
+                        //{ value: { R: '2D2' }, text: 'Another option with object value' }
+                    ]
+                },
+            ],
         }
     },
     methods: {
@@ -71,6 +91,15 @@ export default {
                 let res = data.data || [];
                 this.hunters = res;
                 console.log(res)
+            })
+            .catch(err => {
+                alert(`Ошибка: ${err}`)
+            })
+
+        axios.get(`/includes/classes/3xxx/controllers/fabric.php?controller=getsrs`)
+            .then(data => {
+                let res = data.data || {regs: [], sregs: []};
+                this.regions[0].options = res.sregs;
             })
             .catch(err => {
                 alert(`Ошибка: ${err}`)
