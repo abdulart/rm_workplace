@@ -73,7 +73,7 @@
                         <span>{{ dateFormat(row.value, 'HH:mm DD-MM-YYYY') }}</span>
                         </template> -->
                         <template v-slot:cell(id)="row">
-                            <b-badge variant="info" style="cursor:pointer;">+</b-badge>
+                            <b-badge variant="info" style="cursor:pointer;" :value="row.value">+</b-badge>
                         </template>
                     </b-table>
                 </div>
