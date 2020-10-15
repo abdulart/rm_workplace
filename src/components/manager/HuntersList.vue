@@ -27,12 +27,14 @@
                         <template v-slot:cell(sr_id)="row">
                             <b-input-group size="sm">
                                 <b-form-select
-                                :options="regions"
-                                v-model="row.value"
-                                required
+                                    :options="regions"
+                                    v-model="row.value"
+                                    required
                                 ></b-form-select>
                                 <b-input-group-append>
-                                <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+                                <!-- <b-button @click="filter = ''">
+                                    <span></span>
+                                </b-button> -->
                                 </b-input-group-append>
                             </b-input-group>
                             <!-- <span>{{ dateFormat(row.value, 'DD-MM-YYYY') }}</span> -->
@@ -78,6 +80,7 @@ export default {
                     ]
                 },
             ],
+            disabled: [],
         }
     },
     methods: {
