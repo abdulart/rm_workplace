@@ -24,12 +24,11 @@
                         <template v-slot:cell(act_result)="row">
                         <b-badge :variant="(tabsActivityResults[row.value] || {variant: 'secondary'}).variant">{{(tabsActivityResults[row.value] || {text: 'N/A'}).text}}</b-badge>
                         </template> --> 
-                        <template v-slot:cell(subregion)="row">
+                        <template v-slot:cell(sr_id)="row">
                             <b-input-group size="sm">
                                 <b-form-select
                                 :options="regions"
-                                v-model="region"
-                                :variant="row"
+                                v-model="row.value"
                                 required
                                 ></b-form-select>
                                 <b-input-group-append>
@@ -66,7 +65,7 @@ export default {
             huntersFields: [
                 { key: 'name', label: 'ФИО', sortable: true, sortDirection: 'asc' },
                 { key: 'position', label: 'Должность', sortable: true, sortDirection: 'asc' },
-                { key: 'subregion', label: 'Субрегион', sortable: true, sortDirection: 'asc' },
+                { key: 'sr_id', label: 'Субрегион', sortable: true, sortDirection: 'asc' },
                 // { key: 'deadline', label: 'Дэдлайн', sortable: true, sortDirection: 'asc' },
                 { key: 'id', label: 'Дет.' },
             ],
