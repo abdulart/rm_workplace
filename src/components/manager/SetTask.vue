@@ -25,7 +25,7 @@
                         ></b-form-textarea>
                     </b-form-group>
 
-                    <b-form-group label="Регион или субрегион">
+                    <b-form-group label="Cубрегион">
                         <b-form-select
                         :options="regions"
                         v-model="region"
