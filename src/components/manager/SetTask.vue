@@ -68,10 +68,10 @@
                         </template>
                         <template v-slot:cell(act_result)="row">
                         <b-badge :variant="(tabsActivityResults[row.value] || {variant: 'secondary'}).variant">{{(tabsActivityResults[row.value] || {text: 'N/A'}).text}}</b-badge>
-                        </template>
-                        <template v-slot:cell(act_end_time)="row">
-                        <span>{{ dateFormat(row.value, 'HH:mm DD-MM-YYYY') }}</span>
                         </template> -->
+                        <template v-slot:cell(deadline)="row">
+                            <span>{{ dateFormat(row.value, 'DD-MM-YYYY') }}</span>
+                        </template>
                         <template v-slot:cell(id)="row">
                             <b-badge variant="info" style="cursor:pointer;" :value="row.value">+</b-badge>
                         </template>
@@ -84,6 +84,7 @@
 
 <script>
 import axios from 'axios'
+import moment from 'moment'
 
 export default {
     name: 'SetTask',
@@ -118,6 +119,9 @@ export default {
         }
     },
     methods: {
+        dateFormat(date, format = 'DD-MM-YYYY') {
+            return moment.unix(date).format(format);
+        },
         saveTask: function() {
             if(this.saving) return false;
 
