@@ -26,10 +26,10 @@
                         </template> 
                         <template v-slot:cell(deadline)="row">
                             <span>{{ dateFormat(row.value, 'DD-MM-YYYY') }}</span>
-                        </template>
+                        </template> -->
                         <template v-slot:cell(id)="row">
                             <b-badge variant="info" style="cursor:pointer;" :value="row.value">+</b-badge>
-                        </template> -->
+                        </template> 
                     </b-table>
                    
                 </div>
