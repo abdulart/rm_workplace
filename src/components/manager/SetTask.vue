@@ -28,7 +28,7 @@
                     <b-form-group label="Cубрегион">
                         <b-form-select
                         :options="regions"
-                        :value="region"
+                        v-model="region"
                         required
                         ></b-form-select>
                     </b-form-group>
@@ -112,7 +112,7 @@ export default {
             deadline: '',
             name: '',
             inns: '',
-            region: null,
+            region: 1,
             saving: false,
         }
     },
