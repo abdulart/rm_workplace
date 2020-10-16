@@ -12,7 +12,7 @@
                 <div class="col-sm-2">
                     <div class="text-left" style="padding:10px; font-size:12px;">
                         <label>Выгрузки</label>
-                        <a :href='`/includes/classes/3xxx/controllers/fabric.php?controller=downloadtable&month=${this.selectedMonth}`' class="btn btn-success" style="font-size: 9px;">Эксель</a>
+                        <a :href='`/includes/classes/3xxx/controllers/fabric.php?controller=downloadtable&month=${this.selectedMonth}`' class="btn btn-success" style="width: 100%;font-size: 9px;">Эксель</a>
                     </div>
                 </div>
                 <div class="col-sm-4" style="padding:10px; font-size:12px;">
