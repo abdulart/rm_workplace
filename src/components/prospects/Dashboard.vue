@@ -24,7 +24,7 @@
                 small
                 hover
                 class="text-center table-activities rm-table"
-                :items="items.filter(e => e.fio.indexOf(search) != -1)"
+                :items="items.filter(e => e.fio.toLowerCase().indexOf(search.toLowerCase()) != -1)"
                 :fields="fields"
             >
                 <template v-slot:cell(fio)="row">
