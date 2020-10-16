@@ -28,7 +28,7 @@
                 :fields="fields"
             >
                 <template v-slot:cell(fio)="row">
-                <i>{{ fioToShort(row.value) }}</i>
+                <span style="text-transform: capitalize;">{{ fioToShort(row.value) }}</span>
                 </template>
                 <!-- 
                 <template v-slot:cell(act_type)="row">
