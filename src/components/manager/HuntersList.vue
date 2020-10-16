@@ -28,7 +28,7 @@
                             <b-input-group size="sm">
                                 <b-form-select
                                     :options="regions"
-                                    :v-model="huntersObj[row.item.id]"
+                                    v-model="huntersObj[row.item.id]"
                                     required
                                 ></b-form-select>
                                 <b-input-group-append>
