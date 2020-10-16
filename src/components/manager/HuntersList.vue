@@ -87,7 +87,9 @@ export default {
     methods: {
         
         updateSr: function(e, id) {
-            console.log(e, id);
+            axios.get(`/includes/classes/3xxx/controllers/fabric.php?controller=updatehuntersr&man=${id}&sr=${e}`)
+                .then(data => {console.log(data)})
+                .catch(err => console.log(err))
         }
     },
     mounted() {
