@@ -29,13 +29,12 @@
                                 <b-form-select
                                     :options="regions"
                                     :value="hunters.find(e => e.id === row.item.id).sr_id"
-                                    v-on:input="updateSr($event, row.item.id)"
                                     required
                                 ></b-form-select>
                                 <b-input-group-append>
-                                <!-- <b-button @click="filter = ''">
-                                    <span></span>
-                                </b-button> -->
+                                    <b-button @click="updateSr(row.item.sr_id, row.item.id)">
+                                        Обн.
+                                    </b-button>
                                 </b-input-group-append>
                             </b-input-group>
                             <!-- <span>{{ dateFormat(row.value, 'DD-MM-YYYY') }}</span> -->
@@ -88,7 +87,10 @@ export default {
         
         updateSr: function(e, id) {
             axios.get(`/includes/classes/3xxx/controllers/fabric.php?controller=updatehuntersr&man=${id}&sr=${e}`)
-                .then(data => {console.log(data)})
+                .then(data => {
+                    console.log(data)
+                    alert('Ок')
+                })
                 .catch(err => console.log(err))
         }
     },
