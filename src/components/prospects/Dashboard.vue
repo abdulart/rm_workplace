@@ -8,13 +8,18 @@
         <template v-slot:header>
             <h4 class="mb-0">Отчет по хантерам</h4>
         </template>
-            <div class="row" style="margin:0;">
-                <a :href='`/includes/classes/3xxx/controllers/fabric.php?controller=downloadtable&month=${this.selectedMonth}`' >Эксель</a>
-                <div class="col-sm-3" style="padding:10px; font-size:12px;">
+            <div class="row text-left" style="margin:0;">
+                <div class="col-sm-2">
+                    <div class="text-left" style="padding:10px; font-size:12px;">
+                        <label>Выгрузки</label>
+                        <a :href='`/includes/classes/3xxx/controllers/fabric.php?controller=downloadtable&month=${this.selectedMonth}`' class="btn btn-success" style="font-size: 9px;">Эксель</a>
+                    </div>
+                </div>
+                <div class="col-sm-4" style="padding:10px; font-size:12px;">
                     <label>Месяц отчета</label>
                     <b-form-select @change="setMonthReport" v-model="selectedMonth" :options="reportMonths" size="sm" style="font-size:12px;"></b-form-select>
                 </div>
-                <div class="col-sm-9" style="padding:10px; font-size:12px;">
+                <div class="col-sm-6" style="padding:10px; font-size:12px;">
                     <label>Поиск (Субрегион, Менеджер, Проспект)</label>
                     <b-form-input size="sm" style="font-size:12px;" v-model="search"></b-form-input>
                 </div>
