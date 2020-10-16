@@ -23,7 +23,7 @@
                 responsive
                 small
                 hover
-                class="text-center table-activities"
+                class="text-center table-activities rm-table"
                 :items="items"
                 :fields="fields"
             >
@@ -69,8 +69,10 @@ export default {
             {key:'region', sortable: true, label: 'Регион', class: 'text-left pl-10-i'}, 
             {key:'subregion', sortable: true, label: 'Субрегион', class: 'text-left pl-10-i'}, 
             {key:'fio', sortable: true, label: 'Менеджер', class: 'text-left pl-10-i'}, 
-            {key:'plan', sortable: true, label: 'План'},
-            {key:'fact', sortable: true, label: 'Факт'},
+            {key:'cPlan', sortable: true, label: 'План зв.'},
+            {key:'cfact', sortable: true, label: 'Факт зв.'},
+            {key:'mPlan', sortable: true, label: 'План вст.'},
+            {key:'mfact', sortable: true, label: 'Факт вст.'},
             // {key: 'strikeRate', sortable: true, label: 'Выполнение'},
             // {key:'factRej', sortable: true, label: 'Факт rej.'},
             // {key:'factSucc', sortable: true, label: 'Факт succ.'},
