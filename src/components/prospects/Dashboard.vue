@@ -57,6 +57,7 @@
 <script>
 import axios from 'axios'
 import moment from 'moment-timezone'
+import helpers from '@/helpers'
 
 export default {
     name: 'Dashboard',
@@ -96,6 +97,7 @@ export default {
       }
     },
     methods: {
+        fioToShort: helpers.fioToShort,
         showErr: function(err) {
             this.errorTable.show = true;
             this.errorTable.message = err;
