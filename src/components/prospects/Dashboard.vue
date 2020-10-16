@@ -9,6 +9,7 @@
             <h4 class="mb-0">Отчет по хантерам</h4>
         </template>
             <div class="row" style="margin:0;">
+                <a :href='`/includes/classes/3xxx/controllers/fabric.php?controller=downloadtable&month=${this.selectedMonth}`' >Эксель</a>
                 <div class="col-sm-3" style="padding:10px; font-size:12px;">
                     <label>Месяц отчета</label>
                     <b-form-select @change="setMonthReport" v-model="selectedMonth" :options="reportMonths" size="sm" style="font-size:12px;"></b-form-select>
