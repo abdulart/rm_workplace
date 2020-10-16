@@ -94,9 +94,8 @@ export default {
                     alert('Ок')
                 })
                 .catch(err => console.log(err))
-        }
-    },
-    computed: {
+        },
+
         returnSr: function(id) {
             return this.huntersObj[id]
         }
