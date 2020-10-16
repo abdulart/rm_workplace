@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-sm-9" style="padding:10px; font-size:12px;">
                     <label>Поиск (Субрегион, Менеджер, Проспект)</label>
-                    <b-form-input size="sm" style="font-size:12px;"></b-form-input>
+                    <b-form-input size="sm" style="font-size:12px;" v-model="search"></b-form-input>
                 </div>
             </div>
             <b-table
@@ -24,12 +24,13 @@
                 small
                 hover
                 class="text-center table-activities rm-table"
-                :items="items"
+                :items="items.filter(e => e.fio.indexOf(search) != -1)"
                 :fields="fields"
             >
-                <!-- <template v-slot:cell(fio)="row">
+                <template v-slot:cell(fio)="row">
                 <i>{{ fioToShort(row.value) }}</i>
                 </template>
+                <!-- 
                 <template v-slot:cell(act_type)="row">
                 <b-badge :variant="(tabsActivityResults[row.value] || {variant: 'secondary'}).variant">{{(tabsActivityResults[row.value] || {text: 'N/A'}).text}}</b-badge>
                 </template>
@@ -42,6 +43,12 @@
                 <template v-slot:cell(id)="row">
                     <b-badge variant="info" style="cursor:pointer;" :value="row.value">+</b-badge>
                 </template> -->
+                <template v-slot:cell(mFact)="row">
+                    <span>{{ parseInt(row.value) }}</span>
+                </template>
+                <template v-slot:cell(cFact)="row">
+                    <span>{{ parseInt(row.value) }}</span>
+                </template>
             </b-table>
         </b-card>
     </div>
@@ -85,6 +92,7 @@ export default {
                 '1': {variant: 'success', text: 'Succ.', key: 'succ'},
                 '0': {variant: 'warning', text: 'Запл.', key: 'planned'},
             },
+            search: '',
       }
     },
     methods: {
