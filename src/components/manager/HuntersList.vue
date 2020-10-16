@@ -29,6 +29,7 @@
                                 <b-form-select
                                     :options="regions"
                                     :value="hunters.find(e => e.id === row.item.id).sr_id"
+                                    @change="updateSr(e, id)"
                                     required
                                 ></b-form-select>
                                 <b-input-group-append>
@@ -85,7 +86,9 @@ export default {
     },
     methods: {
         
-
+        updateSr: function(e, id) {
+            console.log(e, id);
+        }
     },
     mounted() {
         axios.get(`/includes/classes/3xxx/controllers/fabric.php?controller=gethunterslist`)
