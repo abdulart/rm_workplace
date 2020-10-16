@@ -32,7 +32,7 @@
                                     required
                                 ></b-form-select>
                                 <b-input-group-append>
-                                    <b-button @click="updateSr(row.item.sr_id, row.item.id)">
+                                    <b-button @click="updateSr(hunters.find(e => e.id === row.item.id).sr_id, row.item.id)">
                                         Обн.
                                     </b-button>
                                 </b-input-group-append>
