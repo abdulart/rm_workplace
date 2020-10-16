@@ -113,6 +113,7 @@ export default {
                 res.forEach(e => {
                     this.huntersObj[e.id] = { sr_id: e.sr_id, options: this.regions[0].options.filter(Boolean).map(k => {
                         if(k.sr_id == e.sr_id) k.selected = true
+                        return k
                     }) };
                 })
                 console.log(res, this.huntersObj)
