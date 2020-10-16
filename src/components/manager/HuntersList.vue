@@ -103,7 +103,7 @@ export default {
                 res.forEach(e => {
                     this.huntersObj[e.id] = e.sr_id;
                 })
-                console.log(res)
+                console.log(res, this.huntersObj)
             })
             .catch(err => {
                 alert(`Ошибка: ${err}`)
