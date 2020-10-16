@@ -28,6 +28,7 @@
                             <b-input-group size="sm">
                                 <b-form-select
                                     :options="regions"
+                                    :value="returnSr(row.item.id)"
                                     v-model="huntersObj[row.item.id]"
                                     required
                                 ></b-form-select>
@@ -93,6 +94,11 @@ export default {
                     alert('Ок')
                 })
                 .catch(err => console.log(err))
+        }
+    },
+    computed: {
+        returnSr: function(id) {
+            return this.huntersObj[id]
         }
     },
     mounted() {
