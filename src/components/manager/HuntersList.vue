@@ -28,11 +28,11 @@
                             <b-input-group size="sm">
                                 <b-form-select
                                     :options="regions"
-                                    :value="hunters.find(e => e.id === row.item.id).sr_id"
+                                    :v-model="huntersObj[row.item.id]"
                                     required
                                 ></b-form-select>
                                 <b-input-group-append>
-                                    <b-button @click="updateSr(hunters.find(e => e.id === row.item.id).sr_id, row.item.id)">
+                                    <b-button @click="updateSr(huntersObj[row.item.id], row.item.id)">
                                         Обн.
                                     </b-button>
                                 </b-input-group-append>
@@ -63,6 +63,7 @@ export default {
     },
     data() {
         return {
+            huntersObj: {},
             hunters: [],
             huntersFields: [
                 { key: 'name', label: 'ФИО', sortable: true, sortDirection: 'asc' },
@@ -99,6 +100,9 @@ export default {
             .then(data => {
                 let res = data.data || [];
                 this.hunters = res;
+                res.forEach(e => {
+                    this.huntersObj[e.id] = e.sr_id;
+                })
                 console.log(res)
             })
             .catch(err => {
