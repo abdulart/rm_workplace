@@ -27,13 +27,12 @@
                         <template v-slot:cell(sr_id)="row">
                             <b-input-group size="sm">
                                 <b-form-select
-                                    :options="regions"
-                                    :value="returnSr(row.item.id)"
-                                    v-model="huntersObj[row.item.id]"
+                                    :options="huntersObj[row.item.id].options"
+                                    v-model="huntersObj[row.item.id].sr_id"
                                     required
                                 ></b-form-select>
                                 <b-input-group-append>
-                                    <b-button @click="updateSr(huntersObj[row.item.id], row.item.id)">
+                                    <b-button @click="updateSr(huntersObj[row.item.id].sr_id, row.item.id)">
                                         Обн.
                                     </b-button>
                                 </b-input-group-append>
@@ -101,23 +100,22 @@ export default {
         }
     },
     mounted() {
-        axios.get(`/includes/classes/3xxx/controllers/fabric.php?controller=gethunterslist`)
-            .then(data => {
-                let res = data.data || [];
-                this.hunters = res;
-                res.forEach(e => {
-                    this.huntersObj[e.id] = e.sr_id;
-                })
-                console.log(res, this.huntersObj)
-            })
-            .catch(err => {
-                alert(`Ошибка: ${err}`)
-            })
-
+        
         axios.get(`/includes/classes/3xxx/controllers/fabric.php?controller=getsrs`)
             .then(data => {
                 let res = data.data || {regs: [], sregs: []};
                 this.regions[0].options = res.sregs;
+                return axios.get(`/includes/classes/3xxx/controllers/fabric.php?controller=gethunterslist`)
+            })
+            .then(data => {
+                let res = data.data || [];
+                this.hunters = res;
+                res.forEach(e => {
+                    this.huntersObj[e.id] = { sr_id: e.sr_id, options: this.regions[0].options.filter(Boolean).map(k => {
+                        if(k.sr_id == e.sr_id) k.selected = true
+                    }) };
+                })
+                console.log(res, this.huntersObj)
             })
             .catch(err => {
                 alert(`Ошибка: ${err}`)
