@@ -29,7 +29,7 @@
                                 <b-form-select
                                     :options="regions"
                                     :value="hunters.find(e => e.id === row.item.id).sr_id"
-                                    @change="updateSr($event, row.item.id)"
+                                    v-on:input="updateSr($event, row.item.id)"
                                     required
                                 ></b-form-select>
                                 <b-input-group-append>
