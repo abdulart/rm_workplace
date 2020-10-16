@@ -28,7 +28,7 @@
                             <b-input-group size="sm">
                                 <b-form-select
                                     :options="regions"
-                                    :value="this.hunters.find(e => e.id === row.item.rd).sr_id"
+                                    :value="hunters.find(e => e.id === row.item.rd).sr_id"
                                     required
                                 ></b-form-select>
                                 <b-input-group-append>
