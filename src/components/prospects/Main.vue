@@ -64,11 +64,10 @@
 
       <b-modal
           id="modal-info"
-          ref="modal"
           title="Информация по клиенту"
           hide-footer
       >
-        <b-button class="mt-3" block @click="$bvModal.hide('modal-info')">Close Me</b-button>
+        <ProspectForm/>
       </b-modal>
 
       <b-modal id="modal-add-activity" title="Добавить активность" hide-footer>
@@ -81,12 +80,14 @@
 <script>
 import axios from 'axios'
 import Meeting from "@/components/partials/Meeting";
+import ProspectForm from "@/components/prospects/ProspectForm";
 
 export default {
     name: 'Main',
     props: {user: Object},
     components: {
       Meeting,
+      ProspectForm
     },
     data() {
         return {
@@ -124,6 +125,12 @@ export default {
                 //     filterByFormatted: true
                 // },
                 // { key: 'actions', label: 'Actions' }
+                ],
+                items: [
+                  {
+                    'name': 'test',
+                    'task': 'test'
+                  }
                 ],
             },
             vidgets: {
