@@ -20,7 +20,7 @@
                     <span class="card-title h2">12</span> / 40
                   </div>
                   <div class="col-6">
-                    
+
                   </div>
                 </div>
                         </b-card-text>
@@ -28,9 +28,9 @@
                 </b-card-group>
                 <div class="mt-3">
                     <strong>Мои проспекты</strong>
-                    <b-table  
+                    <b-table
                         striped
-                        hover 
+                        hover
                         responsive
                         sticky-header="500px"
                         :busy="myProspects.busy"
@@ -53,24 +53,47 @@
                                 </ul>
                             </b-card>
                         </template>
+                      <template v-slot:cell()>
+                        <b-badge href="#" variant="primary" v-b-modal.modal-info>Инфо</b-badge>
+                        <b-badge href="#" variant="primary" v-b-modal.modal-add-activity>Добавить встречу</b-badge>
+                      </template>
                     </b-table>
                 </div>
             </div>
         </b-card>
+
+      <b-modal
+          id="modal-info"
+          ref="modal"
+          title="Информация по клиенту"
+          hide-footer
+      >
+        <b-button class="mt-3" block @click="$bvModal.hide('modal-info')">Close Me</b-button>
+      </b-modal>
+
+      <b-modal id="modal-add-activity" title="Добавить активность" hide-footer>
+        <Meeting :id="parseInt(queryId)" :uid="uid"/>
+        <b-button class="mt-3" block @click="$bvModal.hide('modal-1')">Отмена</b-button>
+      </b-modal>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Meeting from "@/components/partials/Meeting";
 
 export default {
     name: 'Main',
     props: {user: Object},
     components: {
-        
+      Meeting
     },
     data() {
         return {
+          uid: -1,
+          queryId: null,
+          name: '',
+          submittedNames: [],
             tabsActivityTypes: {
                 '-1': {variant: 'danger', text: 'Rej.', key: 'rej'},
                 '2': {variant: 'secondary', text: 'InProc.', key: 'inProc'},
@@ -88,7 +111,8 @@ export default {
                     {key: 'name', label: 'Наименование'},
                     {key: 'task', label: 'Задача'},
                     {key: 'status', label: 'Статус'},
-                    
+                    {key: 'actions', label: 'Действия'}
+
                 // {
                 //     key: 'isActive',
                 //     label: 'is Active',
@@ -101,7 +125,6 @@ export default {
                 // },
                 // { key: 'actions', label: 'Actions' }
                 ],
-                items: [],
             },
             vidgets: {
                 tasks: {
