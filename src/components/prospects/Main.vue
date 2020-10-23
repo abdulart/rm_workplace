@@ -73,7 +73,7 @@
 
       <b-modal id="modal-add-activity" title="Добавить активность" hide-footer>
         <Meeting :id="parseInt(queryId)" :uid="uid"/>
-        <b-button class="mt-3" block @click="$bvModal.hide('modal-1')">Отмена</b-button>
+        <b-button class="mt-3" block @click="$bvModal.hide('modal-add-activity')">Отмена</b-button>
       </b-modal>
     </div>
 </template>
@@ -86,7 +86,7 @@ export default {
     name: 'Main',
     props: {user: Object},
     components: {
-      Meeting
+      Meeting,
     },
     data() {
         return {
