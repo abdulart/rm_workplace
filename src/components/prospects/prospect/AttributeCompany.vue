@@ -114,7 +114,8 @@ name: "AttributeCompany",
         banksVED: '',
         typeOfActivity: '',
         dopInfo: '',
-        revenueForTheYear: ''
+        revenueForTheYear: '',
+        cSubSegment: ''
       },
     }
   },
@@ -137,29 +138,25 @@ name: "AttributeCompany",
           this.attribute.dopInfo = response.data.corp_additional_data
           this.attribute.revenueForTheYear = response.data.vyruchkaZaGod
         })
-        .catch(err => {
-          console.log(err);
-          this.fields.forEach(e => {
-            this.prospect.push({
-              name: e['name'],
-              value: '',
-              key: e.key,
-            })
-          })
+        .catch(error => {
+          console.log(error);
         })
   },
   computed:{
     cSubSegment: function (){
+      let cSubSeg = ''
       if(this.attribute.revenueForTheYear <= 40000000)
-        this.attribute.subSegment = 'PRO'
+        cSubSeg = 'PRO'
       else if(this.attribute.revenueForTheYear > 40000000 && this.attribute.revenueForTheYear <= 4000000000)
-        this.attribute.subSegment = 'MidCap'
+        cSubSeg = 'MidCap'
       else if(this.attribute.revenueForTheYear > 4000000000 && this.attribute.revenueForTheYear <= 16000000000)
-        this.attribute.subSegment = 'Tier 2'
+        cSubSeg = 'Tier 2'
       else if(this.attribute.revenueForTheYear > 16000000000 && this.attribute.revenueForTheYear <= 500000000000)
-        this.attribute.subSegment = 'Tier 1.2'
+        cSubSeg = 'Tier 1.2'
       else
-        this.attribute.subSegment = 'Tier 1.1'
+        cSubSeg = 'Tier 1.1'
+
+      return cSubSeg
     }
   },
   methods:{
