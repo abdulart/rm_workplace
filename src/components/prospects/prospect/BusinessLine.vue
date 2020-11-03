@@ -7,7 +7,7 @@
         class="text-center"
     >
       <template #header >
-        Другие бизнес-линииasdfadsf
+        Другие бизнес-линии
       </template>
       <b-card-text
           class="text-left"

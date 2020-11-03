@@ -38,7 +38,7 @@
             <hr>
             <div class="col-sm text-right">
               Потенциальный суб-сегмент<br>
-              {{ attribute.subSegment }}
+              {{ this.cSubSegment }}
             </div>
             <div class="col-sm text-right">
               Группа<br>
@@ -93,13 +93,15 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
 name: "AttributeCompany",
   data(){
     return {
       id: null,
       attribute:{
-        inn: 234234324,
+        inn: '',
         region: '',
         subRegion: '',
         city: '',
@@ -112,11 +114,53 @@ name: "AttributeCompany",
         banksVED: '',
         typeOfActivity: '',
         dopInfo: '',
+        revenueForTheYear: ''
       },
     }
   },
   mounted() {
     this.id = this.$route.params.id
+    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=attributecompany&client_id=' . this.$route.params.id)
+        .then(response => {
+          this.attribute.inn = response.data.inn
+          this.attribute.region = response.data.corp_region
+          this.attribute.subRegion = response.data.corp_sub_region
+          this.attribute.city = response.data.corp_city
+          this.attribute.subSegment = ''
+          this.attribute.group = response.data.corp_group
+          this.attribute.subjectMSP = ''
+          this.attribute.program85 = ''
+          this.attribute.costImport = response.data.import
+          this.attribute.costExport = response.data.export
+          this.attribute.banksVED = response.data.banks
+          this.attribute.typeOfActivity = response.data.okved_vid_deyatelnosti
+          this.attribute.dopInfo = response.data.corp_additional_data
+          this.attribute.revenueForTheYear = response.data.vyruchkaZaGod
+        })
+        .catch(err => {
+          console.log(err);
+          this.fields.forEach(e => {
+            this.prospect.push({
+              name: e['name'],
+              value: '',
+              key: e.key,
+            })
+          })
+        })
+  },
+  computed:{
+    cSubSegment: function (){
+      if(this.attribute.revenueForTheYear <= 40000000)
+        this.attribute.subSegment = 'PRO'
+      else if(this.attribute.revenueForTheYear > 40000000 && this.attribute.revenueForTheYear <= 4000000000)
+        this.attribute.subSegment = 'MidCap'
+      else if(this.attribute.revenueForTheYear > 4000000000 && this.attribute.revenueForTheYear <= 16000000000)
+        this.attribute.subSegment = 'Tier 2'
+      else if(this.attribute.revenueForTheYear > 16000000000 && this.attribute.revenueForTheYear <= 500000000000)
+        this.attribute.subSegment = 'Tier 1.2'
+      else
+        this.attribute.subSegment = 'Tier 1.1'
+    }
   },
   methods:{
     saveDopInfo(){
