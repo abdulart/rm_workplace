@@ -84,7 +84,22 @@
           </div>
           <hr>
           <div class="row">
-            Детали <small><i>Развернуть</i></small>
+            Детали <small><i v-if="!detailShow" v-on:click="detailShow = !detailShow">Развернуть</i></small><br>
+            <small><i v-if="detailShow" v-on:click="detailShow = !detailShow">Скрыть</i></small><br>
+            <div><br>
+              <ul v-show="this.detailShow">
+                <li>ОГРН: {{ this.attribute.ogrn }}</li>
+                <li>ОКВЭД: {{ this.attribute.okved }}</li>
+                <li>Номер проспекта: {{ this.attribute.numberProspect }}</li>
+                <li>КПП: {{ this.attribute.kpp }}</li>
+                <li>ОКПО: {{ this.attribute.okpo }}</li>
+                <li>ОКОПФ: {{ this.attribute.okopf }}</li>
+                <li>ОКТМО: {{ this.attribute.oktmo }}</li>
+                <li>ОКФС: {{ this.attribute.okfs }}</li>
+                <li>ОКОГУ: {{ this.attribute.okogu }}</li>
+                <li>ОКАТО: {{ this.attribute.okato }}</li>
+              </ul>
+            </div>
           </div>
         </div>
       </b-card-text>
@@ -115,12 +130,26 @@ name: "AttributeCompany",
         typeOfActivity: '',
         dopInfo: '',
         revenueForTheYear: '',
-        cSubSegment: ''
+        cSubSegment: '',
+        ogrn: '',
+        okved: '',
+        numberProspect: '',
+        kpp: '',
+        okpo: '',
+        okopf: '',
+        oktmo: '',
+        okfs: '',
+        okogu: '',
+        okato: '',
       },
+      listShow: false,
+      detailShow: false
     }
   },
   mounted() {
+  console.log(this.detailShow)
     this.id = this.$route.params.id
+    this.attribute.numberProspect = '№' + this.$route.params.id
     axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=attributecompany&client_id=' . this.$route.params.id)
         .then(response => {
           this.attribute.inn = response.data.inn
@@ -136,7 +165,16 @@ name: "AttributeCompany",
           this.attribute.banksVED = response.data.banks
           this.attribute.typeOfActivity = response.data.okved_vid_deyatelnosti
           this.attribute.dopInfo = response.data.corp_additional_data
-          this.attribute.revenueForTheYear = response.data.vyruchkaZaGod
+          this.attribute.revenueForTheYear = response.data.vyruchkaZaGodб
+          this.attribute.ogrn = response.data.ogrn
+          this.attribute.okved = response.data.okved_all
+          this.attribute.kpp = response.data.code_kpp
+          this.attribute.okpo = response.data.code_okpo
+          this.attribute.okopf = response.data.code_okopf
+          this.attribute.oktmo = response.data.code_oktmo
+          this.attribute.okfs = response.data.code_okfs
+          this.attribute.okogu = response.data.code_okogu
+          this.attribute.okato = response.data.code_okato
         })
         .catch(error => {
           console.log(error);
