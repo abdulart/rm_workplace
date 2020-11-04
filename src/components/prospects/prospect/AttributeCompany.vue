@@ -147,7 +147,6 @@ name: "AttributeCompany",
     }
   },
   mounted() {
-  console.log(this.detailShow)
     this.id = this.$route.params.id
     this.attribute.numberProspect = '№' + this.$route.params.id
     axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=attributecompany&client_id=' . this.$route.params.id)

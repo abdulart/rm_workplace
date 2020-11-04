@@ -58,21 +58,16 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "BusinessLine",
   data(){
     return {
       id: null,
       managers:{
-        one:[
-          {name: 'test1'},
-          {name: 'test2'}
-        ],
-        two:[
-          {name: 'ssfgsdfgsfgfsf'},
-          {name: 'wdssdfsadfdsf'},
-          {name: 'sdgffgsdfgsdfg'}
-        ],
+        one:[],
+        two:[],
         tree:[],
         four:[],
         five:[],
@@ -93,11 +88,51 @@ export default {
         eight:false,
         nine:false,
         ten:false
-      },
+      }
     }
   },
   mounted() {
     this.id = this.$route.params.id
+    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=busineslines&client_id=' . this.$route.params.id)
+        .then(response => {
+          let one = []
+          let two = []
+          let tree = []
+          let four = []
+          let five = []
+          let six = []
+          let seven = []
+          let eight = []
+          let nine = []
+          let ten = []
+          response.data.map(function (value){
+            if(value.manager_role_name == 'Малый бизнес Менеджер 1')
+              one.push({name: value.name})
+            else if(value.manager_role_name == 'Малый бизнес Менеджер 2')
+              two.push({name: value.name})
+            else if(value.manager_role_name == 'Малый бизнес дистанционный менеджер (DRM)')
+              tree.push({name: value.name})
+            else if(value.manager_role_name == 'Payroll привлечение (ТО)')
+              four.push({name: value.name})
+            else if(value.manager_role_name == 'Payroll Key RPM')
+              five.push({name: value.name})
+            else if(value.manager_role_name == 'Payroll Federal Support')
+              six.push({name: value.name})
+            else if(value.manager_role_name == 'DSA (ТО и город)')
+              seven.push({name: value.name})
+            else if(value.manager_role_name == 'Payroll Support Запад')
+              eight.push({name: value.name})
+            else if(value.manager_role_name == 'Payroll Support Восток')
+              nine.push({name: value.name})
+            else if(value.manager_role_name == 'Payroll RPM (ТО и город)')
+              ten.push({name: value.name})
+          })
+          this.managers.one = one
+          this.managers.two = two
+        })
+        .catch(error => {
+          console.log(error);
+        })
   }
 }
 </script>
