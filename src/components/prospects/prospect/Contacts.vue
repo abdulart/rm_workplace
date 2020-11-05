@@ -13,7 +13,22 @@
         <table class="table table-bordered">
           <tbody>
             <tr>
-              <td>Телефон(ы):</td>
+              <td class="text-left">Телефон(ы): <b v-for="(item, index) in phones" :key="item.phone">{{item.phone}}<b v-if="index +1 < phones.length">, </b></b></td>
+            </tr>
+            <tr>
+              <td class="text-left" v-if="manName">{{ manName }}: {{ manPost }}</td>
+            </tr>
+            <tr>
+              <td class="text-left">email: {{ email }}</td>
+            </tr>
+            <tr>
+              <td class="text-left">сайт: {{ site }}</td>
+            </tr>
+            <tr>
+              <td class="text-left">Адрес регистрации: {{ addReg }}</td>
+            </tr>
+            <tr>
+              <td class="text-left">Тип района города (скоращенный): {{ type }}</td>
             </tr>
           </tbody>
         </table>
@@ -24,8 +39,37 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-name: "Contacts"
+name: "Contacts",
+  data(){
+  return {
+    phones: [],
+    manPost: '',
+    manName: '',
+    email: '',
+    site: '',
+    addReg: '',
+    type: ''
+    }
+  },
+  mounted() {
+    this.id = this.$route.params.id
+    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=getcontacts&client_id='.this.$route.params.id)
+        .then(response => {
+          this.phones = response.data.contact_phones_array
+          this.manPost = response.data.management_post
+          this.manName = response.data.management_name
+          this.email = response.data.contact_email
+          this.site = response.data.contact_website
+          this.addReg = response.data.adres_reg
+          this.type = response.data.dadata_city_district_with_type
+        })
+        .catch(error => {
+          console.log(error);
+        })
+  }
 }
 </script>
 
