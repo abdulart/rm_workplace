@@ -164,7 +164,7 @@ name: "AttributeCompany",
           this.attribute.banksVED = response.data.banks
           this.attribute.typeOfActivity = response.data.okved_vid_deyatelnosti
           this.attribute.dopInfo = response.data.corp_additional_data
-          this.attribute.revenueForTheYear = response.data.vyruchkaZaGodб
+          this.attribute.revenueForTheYear = response.data.vyruchkaZaGod
           this.attribute.ogrn = response.data.ogrn
           this.attribute.okved = response.data.okved_all
           this.attribute.kpp = response.data.code_kpp
