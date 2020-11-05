@@ -129,6 +129,14 @@ export default {
           })
           this.managers.one = one
           this.managers.two = two
+          this.managers.tree = tree
+          this.managers.four = four
+          this.managers.five = five
+          this.managers.six = six
+          this.managers.seven = seven
+          this.managers.eight = eight
+          this.managers.nine = nine
+          this.managers.ten = ten
         })
         .catch(error => {
           console.log(error);
