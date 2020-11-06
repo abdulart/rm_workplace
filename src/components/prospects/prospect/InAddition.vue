@@ -49,23 +49,43 @@
         </li>
       </ul>
       <div class="tab-content py-3" id="myTabContent">
-        <div class="tab-pane fade" :class="{ 'active show': isActive('home') }" id="action">Action</div>
-        <div class="tab-pane fade" :class="{ 'active show': isActive('profile') }" id="corp">Corp</div>
-        <div class="tab-pane fade" :class="{ 'active show': isActive('contact') }" id="other">Other</div>
+        <div class="tab-pane fade" :class="{ 'active show': isActive('home') }" id="action">
+          <div class="container">
+            <ul>
+              <li class="text-left" v-for="item in this.activityPlan" :key="item" >{{ getDate(item.act_start_tiem) }} {{ item.executor_fio }} {{ item.executor_terofis }} {{ actResult(item.act_result) }} {{ item.act_zametka_text }}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tab-pane fade" :class="{ 'active show': isActive('profile') }" id="corp">
+          <div class="container">
+            <ul>
+              <li class="text-left" v-for="item in this.activityCORP" :key="item" >{{ getDate(item.act_start_tiem) }} {{ item.executor_fio }} {{ item.executor_terofis }} {{ actResult(item.act_result) }} {{ item.act_zametka_text }}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tab-pane fade" :class="{ 'active show': isActive('contact') }" id="other">
+          <div class="container">
+            <ul>
+              <li class="text-left" v-for="item in this.activityOther" :key="item" >{{ getDate(item.act_start_tiem) }} {{ item.executor_fio }} {{ item.executor_terofis }} {{ actResult(item.act_result) }} {{ item.act_zametka_text }}</li>
+            </ul>
+          </div>
+        </div>
       </div>
-
     </b-card-text>
   </b-card>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "InAddition",
   data(){
     return {
       id: '',
       activeItem: '',
-      comments: ''
+      comments: '',
+      activity: []
     }
   },
   methods: {
@@ -77,10 +97,41 @@ export default {
     },
     save(){
       console.log('save')
+    },
+    getDate(time){
+      let date = new Date(time * 1000)
+      return (date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear())
+    },
+    actResult(type){
+      if(type === -1)
+        return 'безуспешно'
+      else if(type === 1)
+        return 'успешно'
+      else if(type === 2)
+        return 'в работе'
+    }
+  },
+  computed:{
+    activityPlan: function (){
+      return []
+      //return this.activity.filter(i => i.act_result === 2)
+    },
+    activityCORP: function (){
+      return this.activity.filter(i => i.act_result === 2)
+    },
+    activityOther: function (){
+      return this.activity.filter(i => (i.act_result === 1 || i.act_result === -1))
     }
   },
   mounted() {
     this.id = this.$route.params.id
+    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=getactivity&client_id=' . this.$route.params.id)
+        .then(response => {
+          this.activity = response.data
+        })
+        .catch(error => {
+          console.log(error);
+        })
   }
 }
 </script>

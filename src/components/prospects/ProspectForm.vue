@@ -14,6 +14,8 @@
     <br>
     <in-addition></in-addition>
     <br>
+    <meeting></meeting>
+    <br>
 
 
     <b-modal id="modal-1" title="Добавить активность" hide-footer>
@@ -24,7 +26,6 @@
 </template>
 
 <script>
-import Meeting from '@/components/partials/Meeting';
 import ProspectBank from "@/components/prospects/prospect/ProspectBank";
 import BusinessLine from "@/components/prospects/prospect/BusinessLine";
 import AttributeCompany from "@/components/prospects/prospect/AttributeCompany";
@@ -32,6 +33,7 @@ import FinancialInfo from "@/components/prospects/prospect/FinancialInfo";
 import Structure from "@/components/prospects/prospect/Structure";
 import Contacts from "@/components/prospects/prospect/Contacts";
 import InAddition from "@/components/prospects/prospect/InAddition";
+import Meeting from "@/components/prospects/prospect/Meeting";
 import axios from 'axios';
 import moment from 'moment';
 
