@@ -198,7 +198,21 @@ name: "AttributeCompany",
   },
   methods:{
     saveDopInfo(){
-      console.log('save')
+
+      let form_data = new FormData();
+      form_data.append('additional_data', this.attribute.dopInfo)
+      form_data.append('clientid', this.id)
+
+      axios.post('/includes/classes/3xxx/controllers/fabric.php?controller=saveadditionaldata', form_data)
+          .then(data => {
+            console.log(data);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+          .finally(() => {
+            location.reload();
+          })
     }
   }
 }

@@ -13,19 +13,19 @@
       <div class="row">
         <div class="col-sm text-right">
           Долговая нагрузка (EBITDA/Капитал)<br>
-
+          {{ leverage }} (период: {{ leveragePeriod }})
         </div>
         <div class="col-sm text-right">
           Динамика продаж<br>
-
+          {{ salesDynamics }} (период: {{ salesDynamicsPeriod }})
         </div>
         <div class="col-sm text-right">
-          Динамика операционных продаж
-
+          Динамика операционных продаж<br>
+          {{ operatingSalesDynamics }} (период: {{ operatingSalesDynamicsPeriod }})
         </div>
         <div class="col-sm text-right">
-          Текущая ликвидность
-
+          Текущая ликвидность<br>
+          {{ liquidity }} (период: {{ liquidityPeriod }})
         </div>
       </div>
       <hr>
@@ -83,9 +83,17 @@ export default {
   data(){
     return {
       id: '',
+      activity: [],
       activeItem: '',
-      comments: '',
-      activity: []
+      leverage: '',
+      leveragePeriod: '',
+      salesDynamics: '',
+      salesDynamicsPeriod: '',
+      operatingSalesDynamics: '',
+      operatingSalesDynamicsPeriod: '',
+      liquidity: '',
+      liquidityPeriod: '',
+      comments: ''
     }
   },
   methods: {
@@ -96,7 +104,20 @@ export default {
       this.activeItem = menuItem
     },
     save(){
-      console.log('save')
+      let form_data = new FormData();
+      form_data.append('comment', this.comments)
+      form_data.append('clientid', this.id)
+
+      axios.post('/includes/classes/3xxx/controllers/fabric.php?controller=savecorpcomment', form_data)
+          .then(data => {
+            console.log(data);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+          .finally(() => {
+            location.reload();
+          })
     },
     getDate(time){
       let date = new Date(time * 1000)
@@ -113,21 +134,37 @@ export default {
   },
   computed:{
     activityPlan: function (){
-      return []
-      //return this.activity.filter(i => i.act_result === 2)
+      return this.activity.filter(i => i.act_result === 2) ? this.activity.filter(i => i.act_result === 2) : []
     },
     activityCORP: function (){
-      return this.activity.filter(i => i.act_result === 2)
+      return this.activity.filter(i => i.act_result === 2) ? this.activity.filter(i => i.act_result === 2) : []
     },
     activityOther: function (){
-      return this.activity.filter(i => (i.act_result === 1 || i.act_result === -1))
+      return this.activity.filter(i => (i.act_result === 1 || i.act_result === -1)) ? this.activity.filter(i => (i.act_result === 1 || i.act_result === -1)) : []
     }
   },
   mounted() {
     this.id = this.$route.params.id
+
     axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=getactivity&client_id=' . this.$route.params.id)
         .then(response => {
           this.activity = response.data
+        })
+        .catch(error => {
+          console.log(error);
+        })
+
+    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=getadditionaldata&client_id=' . this.$route.params.id)
+        .then(response => {
+          this.leverage = response.data.leverage
+          this.leveragePeriod = response.data.leveragePeriod
+          this.salesDynamics = response.data.salesDynamics
+          this.salesDynamicsPeriod = response.data.salesDynamicsPeriod
+          this.operatingSalesDynamics = response.data.operatingSalesDynamics
+          this.operatingSalesDynamicsPeriod = response.data.operatingSalesDynamicsPeriod
+          this.liquidity = response.data.liquidity
+          this.liquidityPeriod = response.data.liquidityPeriod
+          this.comments = response.data.comments
         })
         .catch(error => {
           console.log(error);
