@@ -71,7 +71,7 @@
       </b-modal>
 
       <b-modal id="modal-add-activity" title="Добавить активность" hide-footer>
-        <Meeting :id="parseInt(queryId)" :uid="uid"/>
+        <AddMeeting :id="parseInt(queryId)" :uid="uid"/>
         <b-button class="mt-3" block @click="$bvModal.hide('modal-add-activity')">Отмена</b-button>
       </b-modal>
     </div>
@@ -79,14 +79,14 @@
 
 <script>
 import axios from 'axios'
-import Meeting from "@/components/partials/Meeting";
+import AddMeeting from "@/components/partials/AddMeeting";
 import ProspectForm from "@/components/prospects/ProspectForm";
 
 export default {
     name: 'Main',
     props: {user: Object},
     components: {
-      Meeting,
+      AddMeeting,
       ProspectForm
     },
     data() {

@@ -38,7 +38,7 @@
             <hr>
             <div class="col-sm text-right">
               Потенциальный суб-сегмент<br>
-              {{ attribute.subSegment }}
+              {{ this.cSubSegment }}
             </div>
             <div class="col-sm text-right">
               Группа<br>
@@ -84,7 +84,22 @@
           </div>
           <hr>
           <div class="row">
-            Детали <small><i>Развернуть</i></small>
+            Детали <small><i v-if="!detailShow" v-on:click="detailShow = !detailShow">Развернуть</i></small><br>
+            <small><i v-if="detailShow" v-on:click="detailShow = !detailShow">Скрыть</i></small><br>
+            <div><br>
+              <ul v-show="this.detailShow">
+                <li>ОГРН: {{ this.attribute.ogrn }}</li>
+                <li>ОКВЭД: {{ this.attribute.okved }}</li>
+                <li>Номер проспекта: {{ this.attribute.numberProspect }}</li>
+                <li>КПП: {{ this.attribute.kpp }}</li>
+                <li>ОКПО: {{ this.attribute.okpo }}</li>
+                <li>ОКОПФ: {{ this.attribute.okopf }}</li>
+                <li>ОКТМО: {{ this.attribute.oktmo }}</li>
+                <li>ОКФС: {{ this.attribute.okfs }}</li>
+                <li>ОКОГУ: {{ this.attribute.okogu }}</li>
+                <li>ОКАТО: {{ this.attribute.okato }}</li>
+              </ul>
+            </div>
           </div>
         </div>
       </b-card-text>
@@ -93,13 +108,15 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
 name: "AttributeCompany",
   data(){
     return {
       id: null,
       attribute:{
-        inn: 234234324,
+        inn: '',
         region: '',
         subRegion: '',
         city: '',
@@ -112,15 +129,90 @@ name: "AttributeCompany",
         banksVED: '',
         typeOfActivity: '',
         dopInfo: '',
+        revenueForTheYear: '',
+        cSubSegment: '',
+        ogrn: '',
+        okved: '',
+        numberProspect: '',
+        kpp: '',
+        okpo: '',
+        okopf: '',
+        oktmo: '',
+        okfs: '',
+        okogu: '',
+        okato: '',
       },
+      listShow: false,
+      detailShow: false
     }
   },
   mounted() {
     this.id = this.$route.params.id
+    this.attribute.numberProspect = '№' + this.$route.params.id
+    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=attributecompany&client_id=' . this.$route.params.id)
+        .then(response => {
+          this.attribute.inn = response.data.inn
+          this.attribute.region = response.data.corp_region
+          this.attribute.subRegion = response.data.corp_sub_region
+          this.attribute.city = response.data.corp_city
+          this.attribute.subSegment = ''
+          this.attribute.group = response.data.corp_group
+          this.attribute.subjectMSP = ''
+          this.attribute.program85 = ''
+          this.attribute.costImport = response.data.import
+          this.attribute.costExport = response.data.export
+          this.attribute.banksVED = response.data.banks
+          this.attribute.typeOfActivity = response.data.okved_vid_deyatelnosti
+          this.attribute.dopInfo = response.data.corp_additional_data
+          this.attribute.revenueForTheYear = response.data.vyruchkaZaGod
+          this.attribute.ogrn = response.data.ogrn
+          this.attribute.okved = response.data.okved_all
+          this.attribute.kpp = response.data.code_kpp
+          this.attribute.okpo = response.data.code_okpo
+          this.attribute.okopf = response.data.code_okopf
+          this.attribute.oktmo = response.data.code_oktmo
+          this.attribute.okfs = response.data.code_okfs
+          this.attribute.okogu = response.data.code_okogu
+          this.attribute.okato = response.data.code_okato
+        })
+        .catch(error => {
+          console.log(error);
+        })
+  },
+  computed:{
+    cSubSegment: function (){
+      let cSubSeg = ''
+      if(this.attribute.revenueForTheYear <= 40000000)
+        cSubSeg = 'PRO'
+      else if(this.attribute.revenueForTheYear > 40000000 && this.attribute.revenueForTheYear <= 4000000000)
+        cSubSeg = 'MidCap'
+      else if(this.attribute.revenueForTheYear > 4000000000 && this.attribute.revenueForTheYear <= 16000000000)
+        cSubSeg = 'Tier 2'
+      else if(this.attribute.revenueForTheYear > 16000000000 && this.attribute.revenueForTheYear <= 500000000000)
+        cSubSeg = 'Tier 1.2'
+      else
+        cSubSeg = 'Tier 1.1'
+
+      return cSubSeg
+    }
   },
   methods:{
     saveDopInfo(){
-      console.log('save')
+
+      let form_data = new FormData();
+      form_data.append('additional_data', this.attribute.dopInfo)
+      form_data.append('clientid', this.id)
+
+      axios.post('/includes/classes/3xxx/controllers/fabric.php?controller=saveadditionaldata', form_data)
+          .then(data => {
+            console.log(data);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+          .finally(() => {
+            location.reload();
+          })
     }
   }
 }

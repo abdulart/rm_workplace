@@ -35,8 +35,8 @@ import moment from 'moment'
 import axios from 'axios';
 
 export default {
-    
-  name: 'Meeting',
+
+  name: 'AddMeeting',
   components: {
       Multiselect,
   },
@@ -96,5 +96,5 @@ export default {
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style scoped>
-  
+
 </style>

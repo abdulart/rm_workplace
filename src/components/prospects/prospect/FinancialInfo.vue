@@ -16,25 +16,31 @@
           <hr>
           <div class="row">
             <div class="col-sm text-right">
-              Выручка
+              Выручка<br>
+              {{ this.virychka }}
             </div>
             <div class="col-sm text-right">
-              Размер
+              Размер<br>
+              {{ this.razmerPredp }}
             </div>
             <div class="col-sm text-right">
-              Количество сотрудников
+              Количество сотрудников<br>
+              {{ this.numberOfEmployeesRange }} (СПАРК) {{ this.empNum }} (ФНС)
             </div>
             <div class="col-sm text-right">
-              Кредитный рейтинг
+              Кредитный рейтинг<br>
+              {{ this.credRating }}
             </div>
           </div>
           <hr>
           <div class="row">
             <div class="col-sm text-right">
-              Текущий ФОТ
+              Текущий ФОТ<br>
+              {{ this.payrollFot }}
             </div>
             <div class="col-sm text-right">
-              Текущий ЗП Банка
+              Текущий ЗП Банка<br>
+              {{ this.currentPayrollBank }}
             </div>
             <div class="col-sm text-right"></div>
             <div class="col-sm text-right"></div>
@@ -50,15 +56,37 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: "FinancialInfo",
   data(){
     return {
-      id: null
+      id: null,
+      virychka: '',
+      razmerPredp: '',
+      numberOfEmployeesRange: '',
+      empNum: '',
+      credRating: '',
+      payrollFot: '',
+      currentPayrollBank: ''
     }
   },
   mounted() {
     this.id = this.$route.params.id
+    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=fininfo&client_id=' . this.$route.params.id)
+        .then(response => {
+          this.virychka = response.data.vyruchka_za_god
+          this.razmerPredp = response.data.razmer_predpriyatiya
+          this.numberOfEmployeesRange = response.data.numberOfEmployeesRange
+          this.empNum = response.data.empNUm
+          this.credRating = response.data.cred_rating
+          this.payrollFot = response.data.payroll_fot
+          this.currentPayrollBank = response.data.current_payroll_bank
+        })
+        .catch(error => {
+          console.log(error);
+        })
   }
 }
 </script>
