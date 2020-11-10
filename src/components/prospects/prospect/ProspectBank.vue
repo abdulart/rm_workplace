@@ -24,15 +24,17 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "ProspectBank",
   data(){
     return {
-      name: 'ООО "Эколайн"',
+      name: '',
       id: null,
-      status: 'Free',
-      importantInformation: 'Отсутствует',
-      CORPManager: 'Отсутствует',
+      status: '',
+      importantInformation: '',
+      CORPManager: '',
     }
   },
   methods: {
@@ -42,6 +44,13 @@ export default {
   },
   mounted() {
     this.id = this.$route.params.id
+    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=getinfoclient&client_id=' . this.$route.params.id)
+        .then(response => {
+          this.name = response.data.name
+        })
+        .catch(error => {
+          console.log(error);
+        })
   }
 }
 </script>
