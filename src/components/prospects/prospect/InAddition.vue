@@ -82,7 +82,7 @@ export default {
   name: "InAddition",
   data(){
     return {
-      id: '',
+      id: null,
       activity: [],
       activeItem: '',
       leverage: '',
@@ -143,10 +143,10 @@ export default {
       return this.activity.filter(i => (i.act_result === 1 || i.act_result === -1)) ? this.activity.filter(i => (i.act_result === 1 || i.act_result === -1)) : []
     }
   },
-  mounted() {
-    this.id = this.$route.params.id
+  created() {console.log(this.$route.params.id)
+    this.id = this.$route.params.id ? this.$route.params.id : null
 
-    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=getactivity&client_id=' . this.$route.params.id)
+    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=getactivity&client_id=' + this.id)
         .then(response => {
           this.activity = response.data
         })
@@ -154,7 +154,7 @@ export default {
           console.log(error);
         })
 
-    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=getadditionaldata&client_id=' . this.$route.params.id)
+    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=getadditionaldata&client_id=' + this.id)
         .then(response => {
           this.leverage = response.data.leverage
           this.leveragePeriod = response.data.leveragePeriod

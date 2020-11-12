@@ -73,8 +73,8 @@ export default {
     }
   },
   mounted() {
-    this.id = this.$route.params.id
-    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=fininfo&client_id=' . this.$route.params.id)
+    this.id = this.$route.params.id ? this.$route.params.id : null
+        axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=fininfo&client_id=' + this.id)
         .then(response => {
           this.virychka = response.data.vyruchka_za_god
           this.razmerPredp = response.data.razmer_predpriyatiya

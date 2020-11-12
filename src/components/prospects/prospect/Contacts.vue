@@ -45,6 +45,7 @@ export default {
 name: "Contacts",
   data(){
   return {
+    id: null,
     phones: [],
     manPost: '',
     manName: '',
@@ -55,8 +56,8 @@ name: "Contacts",
     }
   },
   mounted() {
-    this.id = this.$route.params.id
-    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=getcontacts&client_id='.this.$route.params.id)
+    this.id = this.$route.params.id ? this.$route.params.id : null
+        axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=getcontacts&client_id=' + this.id)
         .then(response => {
           this.phones = response.data.contact_phones_array
           this.manPost = response.data.management_post
