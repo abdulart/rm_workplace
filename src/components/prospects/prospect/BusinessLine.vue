@@ -92,8 +92,8 @@ export default {
     }
   },
   mounted() {
-    this.id = this.$route.params.id
-    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=busineslines&client_id=' . this.$route.params.id)
+    this.id = this.$route.params.id ? this.$route.params.id : null
+    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=busineslines&client_id=' + this.id)
         .then(response => {
           let one = []
           let two = []

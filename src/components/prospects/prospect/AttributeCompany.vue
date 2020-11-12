@@ -147,9 +147,9 @@ name: "AttributeCompany",
     }
   },
   mounted() {
-    this.id = this.$route.params.id
-    this.attribute.numberProspect = '№' + this.$route.params.id
-    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=attributecompany&client_id=' . this.$route.params.id)
+    this.id = this.$route.params.id ? this.$route.params.id : null
+        this.attribute.numberProspect = '№' + this.id
+    axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=attributecompany&client_id=' + this.id)
         .then(response => {
           this.attribute.inn = response.data.inn
           this.attribute.region = response.data.corp_region
