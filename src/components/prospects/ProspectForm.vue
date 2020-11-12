@@ -134,7 +134,7 @@ export default {
     }
   },
   mounted() {
-    this.id = this.$route.params.id
+    this.id = this.$route.params.id || null;
     this.queryId = this.$route.params.id || null;
     this.uid = this.$cookies.get('corp_counter') || -1;
     let form_data = new FormData();
