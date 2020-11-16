@@ -143,7 +143,7 @@ export default {
       return this.activity.filter(i => (i.act_result === 1 || i.act_result === -1)) ? this.activity.filter(i => (i.act_result === 1 || i.act_result === -1)) : []
     }
   },
-  created() {console.log(this.$route.params.id)
+  mounted() {console.log(this.$route.params.id)
     this.id = this.$route.params.id ? this.$route.params.id : null
 
     axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=getactivity&client_id=' + this.id)
