@@ -76,13 +76,13 @@ export default {
     this.id = this.$route.params.id ? this.$route.params.id : null
         axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=fininfo&client_id=' + this.id)
         .then(response => {
-          this.virychka = response.data.vyruchka_za_god
-          this.razmerPredp = response.data.razmer_predpriyatiya
-          this.numberOfEmployeesRange = response.data.numberOfEmployeesRange
-          this.empNum = response.data.empNUm
-          this.credRating = response.data.cred_rating
-          this.payrollFot = response.data.payroll_fot
-          this.currentPayrollBank = response.data.current_payroll_bank
+          this.virychka = response.data[0].vyruchka_za_god
+          this.razmerPredp = response.data[0].razmer_predpriyatiya
+          this.numberOfEmployeesRange = response.data[0].numberOfEmployeesRange
+          this.empNum = response.data[0].empNUm
+          this.credRating = response.data[0].cred_rating
+          this.payrollFot = response.data[0].payroll_fot
+          this.currentPayrollBank = response.data[0].current_payroll_bank
         })
         .catch(error => {
           console.log(error);

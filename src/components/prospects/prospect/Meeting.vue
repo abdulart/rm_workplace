@@ -9,7 +9,7 @@
       Встречи
     </template>
     <b-card-text>
-      test
+
     </b-card-text>
   </b-card>
 </template>
