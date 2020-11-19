@@ -13,7 +13,7 @@
         <table class="table table-bordered">
           <tbody>
             <tr>
-              <td class="text-left">Телефон(ы): <b v-for="(item, index) in phones" :key="item.phone">{{item.phone}}<b v-if="index +1 < phones.length">, </b></b></td>
+              <td class="text-left">Телефон(ы): <b v-for="(item, index) in phones" :key="item.phone">{{item}}<b v-if="index +1 < phones.length">, </b></b></td>
             </tr>
             <tr>
               <td class="text-left" v-if="manName">{{ manName }}: {{ manPost }}</td>
