@@ -46,7 +46,7 @@ export default {
     this.id = this.$route.params.id ? this.$route.params.id : null
         axios.get('/includes/classes/3xxx/controllers/fabric.php?controller=getclientinfo&client_id=' + this.id)
         .then(response => {
-          this.name = response.data.name
+          this.name = response.data[0].name
         })
         .catch(error => {
           console.log(error);
