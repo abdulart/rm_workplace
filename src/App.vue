@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Sidebar :user="user"/>
-    <Navbar/>
+    <Navbar :pathName="pathName"/>
     <div class="page-container">
       <div class="container">
         <router-view :user="user"/>
@@ -21,10 +21,14 @@ export default {
   },
   data() {
     return {
+      pathName: 'CorPortal',
       user: {
         name: null,
         counter: null,
         roles: null,
+      },
+      pathNames: {
+        manager: ''
       }
     }
   },

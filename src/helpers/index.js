@@ -11,13 +11,13 @@ module.exports = {
         }
     },
     cutNameIfLongerThan(string, length = 30, ending = '...')
-      {
-        if(!string) return '';
-        else {
-            if(string.length < length) return string;
-            else {
-              return string.substr(0, length)+ending;
-            }
-        }
-      },
+    {
+      if(!string) return '';
+      else {
+          if(string.length < length) return string;
+          else {
+            return string.substr(0, length)+ending;
+          }
+      }
+    },
 }

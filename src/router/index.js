@@ -51,6 +51,16 @@ Vue.use(VueRouter)
     component: () => import('@/views/manager/RegManager.vue')
   },
   {
+    path: '/manager/dashboard',
+    name: 'Dashboard',
+    component: () => import('@/views/manager/Dashboard.vue')
+  },
+  {
+    path: '/manager/headdashboard',
+    name: 'Dashboard',
+    component: () => import('@/views/manager/HeadDashboard.vue')
+  },
+  {
     path: '/manager/subregion',
     name: 'SubregManager',
     component: () => import('@/views/manager/SubregManager.vue')
@@ -64,6 +74,11 @@ Vue.use(VueRouter)
     path: '/manager/hunters',
     name: 'Hunters',
     component: () => import('@/views/manager/Hunters.vue')
+  },
+  {
+    path: '/agents',
+    name: 'Agents',
+    component: () => import('@/views/Agents.vue')
   },
   {
     path: '*',
